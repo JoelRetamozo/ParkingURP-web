@@ -125,7 +125,7 @@ function guardarUsuario($id_persona_new){
 
 	$.ajax({
 		url: "../ajax/C_Usuario.php?op=guardar&id_persona_new='$id_persona_new'",
-		type: "POST",
+		type: "REQUEST",
 		data: formData,
 		contentType: false,
 		processData: false,
