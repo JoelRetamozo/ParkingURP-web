@@ -24,6 +24,11 @@ function init(){
 		$('#id_tipo_vehiculo').selectpicker('refresh');
 	});
 
+	$.post("../ajax/C_Marca_Vehiculo.php?op=selectMarcaVehiculo", function(r){
+		$("#id_marca_vehiculo").html(r);
+		$('#id_marca_vehiculo').selectpicker('refresh');
+	});
+
 	$.post("../ajax/C_Color.php?op=selectColor", function(r){
 		$("#id_color").html(r);
 		$('#id_color').selectpicker('refresh');

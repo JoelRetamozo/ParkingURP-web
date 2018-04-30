@@ -133,11 +133,9 @@ CREATE  TABLE IF NOT EXISTS `BD_ParkingURP`.`T_Usuario` (
   `password` VARCHAR(45) NOT NULL ,
   `estado` CHAR(1) NOT NULL ,
   `fecha_registro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `id_persona` INT NOT NULL ,
-  PRIMARY KEY (`id_usuario`, `id_persona`) ,
-  INDEX `fk_T_Usuario_T_Persona1_idx` (`id_persona` ASC) ,
+  PRIMARY KEY (`id_usuario`) ,
   CONSTRAINT `fk_T_Usuario_T_Persona1`
-    FOREIGN KEY (`id_persona` )
+    FOREIGN KEY (`id_usuario` )
     REFERENCES `BD_ParkingURP`.`T_Persona` (`id_persona` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -331,6 +329,25 @@ CREATE  TABLE IF NOT EXISTS `BD_ParkingURP`.`T_Estacionamiento_Cercano` (
   `longitud` VARCHAR(255) NOT NULL ,
   `fecha_registro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   PRIMARY KEY (`id_estacionamiento_cercano`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `BD_ParkingURP`.`T_Invitado`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_ParkingURP`.`T_Invitado` ;
+
+CREATE  TABLE IF NOT EXISTS `BD_ParkingURP`.`T_Invitado` (
+  `id_invitado` INT NOT NULL AUTO_INCREMENT ,
+  `codigo` VARCHAR(45) NOT NULL ,
+  `id_control` INT NOT NULL ,
+  PRIMARY KEY (`id_invitado`, `id_control`) ,
+  INDEX `fk_T_Invitado_T_Control1_idx` (`id_control` ASC) ,
+  CONSTRAINT `fk_T_Invitado_T_Control1`
+    FOREIGN KEY (`id_control` )
+    REFERENCES `BD_ParkingURP`.`T_Control` (`id_control` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 USE `BD_ParkingURP` ;

@@ -9,6 +9,8 @@ switch ($_GET["op"]) {
 
 			$rspta = $m_carrera->select();
 
+			echo '<option value="000">--SELECCIONE--</option>';
+
 			while ($reg = $rspta->fetch_object()) {
 				echo '<option value="' . $reg->id_carrera . '">' . $reg->nombre . '</option>';
 			}

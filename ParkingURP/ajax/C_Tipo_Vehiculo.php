@@ -8,6 +8,7 @@ switch ($_GET["op"]) {
 	case 'selectTipoVehiculo':
 
 			$rspta = $m_tipo_vehiculo->select();
+			echo '<option value="000">--SELECCIONE--</option>';
 
 			while ($reg = $rspta->fetch_object()) {
 				echo '<option value="' . $reg->id_tipo_vehiculo . '">' . $reg->nombre . '</option>';
