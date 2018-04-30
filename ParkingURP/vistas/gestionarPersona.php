@@ -140,7 +140,7 @@ require 'header.php';
                       <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Marca Vehiculo:</label>
                         <div class="">
-                          <select id="id_marca_vehiculo" name="id_marca_vehiculo" class="form-control selectpicker" data-live-search="true" required></select>
+                          <select id="id_marca_vehiculo" name="id_marca_vehiculo" class="form-control selectpicker" data-live-search="true"></select>
                         </div>
                       </div>
                       <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">

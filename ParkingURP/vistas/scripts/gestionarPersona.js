@@ -113,7 +113,25 @@ function guardaryeditar(e){
 		processData: false,
 
 		success: function(datos){
-			guardaryeditarVehiculo(datos);
+			//guardaryeditarVehiculo(datos);
+			guardarUsuario(datos);
+			bootbox.alert(datos);
+		}
+	});
+}
+
+function guardarUsuario($id_persona_new){
+	var formData = new FormData($("#formulario")[0]);
+
+	$.ajax({
+		url: "../ajax/C_Usuario.php?op=guardar&id_persona_new='$id_persona_new'",
+		type: "POST",
+		data: formData,
+		contentType: false,
+		processData: false,
+
+		success: function(datos){
+			//guardarPersonaXVehiculo($id_persona_new, datos);
 			bootbox.alert(datos);
 		}
 	});

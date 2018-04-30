@@ -10,5 +10,6 @@ switch ($_GET["op"]) {
 				echo '<option value="' . $reg->id_marca_vehiculo . '">' . $reg->nombre . '</option>';
 			}
 			break;
+			
 }
 ?>
