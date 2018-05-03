@@ -16,6 +16,7 @@ $id_carrera = isset($_POST["id_carrera"])? limpiarCadena($_POST["id_carrera"]):"
 
 switch ($_GET["op"]) {
 	case 'guardaryeditar':
+
 		if(empty($id_persona)){
 			$rspta = $m_persona->insertar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $id_tipo_persona, $id_carrera);
 			echo $rspta;
@@ -44,7 +45,8 @@ switch ($_GET["op"]) {
 				"3" => $reg->ape_materno,
 				"4" => $reg->tipo_persona,
 				"5" => $reg->placa,
-				"6" => '<button class="btn btn-warning" onclick="mostrar('.$reg->id_persona.')"><i class="fa fa-pencil"></i></button>'
+				"6" => '<button class="btn btn-warning" onclick="mostrar('.$reg->id_persona.')"><i class="fa fa-pencil"></i></button>',
+				"7" => ($reg->estado)?'<button class="btn btn-danger" onclick="desactivar('.$reg->id_persona.')"><i class="fa fa-close"></i></button> <span class="label bg-green">Activado</span>': '<button class="btn btn-primary" onclick="activar('.$reg->id_persona.')"><i class="fa fa-check"></i></button> <span class="label bg-red">Desactivado</span>'
 				);
 		}
 		$results = array(
@@ -53,6 +55,11 @@ switch ($_GET["op"]) {
 			"iTotalDisplayRecords" => count($data), //enviamos el total registros a visualizar
 			"aaData" => $data);
 		echo json_encode($results);
+		break;
+
+	case 'existeCodigo':
+			$rspta = $m_persona->existeCodigo($codigo);
+			echo json_encode($rspta);
 		break;
 }
 

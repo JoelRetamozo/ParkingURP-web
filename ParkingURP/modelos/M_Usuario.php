@@ -6,12 +6,29 @@ Class M_Usuario{
 	public function __construct(){
 	}
 	public function insertar($codigo, $correo, $id_persona){
-		//$password = crearPassword();
-		$password = "ekjhbdkfujbfsdposdf";
+		//$password = "ekjhbdkfujbfsdposdf";
 		//enviarMail($correo, $password);
-		$sql = "INSERT INTO T_Usuario(codigo, password, estado, id_persona) VALUES ('$codigo', '$password', '1', '$id_persona')";
+		$caracteres='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		$longpalabra=10;
+		for($pass='', $n=strlen($caracteres)-1; strlen($pass) < $longpalabra ; ) {
+  			$x = rand(0,$n);
+  			$pass.= $caracteres[$x];
+		}
+
+		$sql = "INSERT INTO T_Usuario(codigo, password, estado, id_persona) VALUES ('$codigo', '$pass', '1', '$id_persona')";
 		return ejecutarConsulta($sql);
 	}
+
+	public function activar($id_persona){
+		$sql = "UPDATE T_Usuario SET estado = '1' WHERE id_persona = '$id_persona'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function desactivar($id_persona){
+		$sql = "UPDATE T_Usuario SET estado = '0' WHERE id_persona = '$id_persona'";
+		return ejecutarConsulta($sql);
+	}
+
 	function enviarMail($correo, $password){
 		$subject = "Cuenta para la aplicación móvil ParkingURP";
 		$headers = 'From: parkingurp@gmail.com' . "\r\n" .
@@ -22,15 +39,6 @@ Class M_Usuario{
 			"Usuario: 201415634" . "\r\n" .
 			"Password: " . $password;
 		mail($correo, $subject, $message);
-	}
-	function crearPassword(){
-		$caracteres='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		$longpalabra=10;
-		for($pass='', $n=strlen($caracteres)-1; strlen($pass) < $longpalabra ; ) {
-  			$x = rand(0,$n);
-  			$pass.= $caracteres[$x];
-		}
-		return $pass;
 	}
 }
 ?>
