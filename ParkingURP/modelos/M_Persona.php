@@ -34,6 +34,11 @@ Class M_Persona{
 		return ejecutarConsulta($sql);
 	}
 
+	public function listarSinVehiculo(){
+		$sql = "SELECT p.id_persona, p.codigo, p.nombre, p.ape_paterno, p.ape_materno, tp.nombre as tipo_persona FROM T_Persona p INNER JOIN T_Tipo_Persona tp ON p.id_tipo_persona = tp.id_tipo_persona AND (SELECT COUNT(id_persona) FROM t_persona_has_t_vehiculo WHERE id_persona = p.id_persona) = 0";
+		return ejecutarConsulta($sql);
+	}
+
 	public function existeCodigo($codigo){
 		$sql = "SELECT COUNT(*) AS count FROM T_Persona WHERE codigo = '$codigo'";
 		return ejecutarConsultaSimpleFila($sql);

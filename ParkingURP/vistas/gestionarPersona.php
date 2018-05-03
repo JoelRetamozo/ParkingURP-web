@@ -30,7 +30,17 @@ require 'header.php';
                 </div>
               </div>
 
-              <div class="panel-body table-responsive" id="listadoregistros">
+              <div class="row">
+        <div class="col-md-12">
+          <!-- Custom Tabs -->
+          <div id="divPanels" class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_1" data-toggle="tab">Vehiculos Registrados</a></li>
+              <li><a href="#tab_2" data-toggle="tab">Vehiculos No Registrados</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+                <div class="panel-body table-responsive" id="listadoregistros">
                 <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                   <thead>
                     <th>Codigo</th>
@@ -56,6 +66,41 @@ require 'header.php';
                   </tfoot>
                 </table>
               </div>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_2">
+                <div class="panel-body table-responsive" id="listadoregistrosSin">
+                <table id="tbllistadoSin" class="table table-striped table-bordered table-condensed table-hover">
+                  <thead>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Tipo de Persona</th>
+                    <th>Registrar</th>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                  <tfoot>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Tipo de Persona</th>
+                    <th>Registrar</th>
+                  </tfoot>
+                </table>
+              </div>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+      </div>
+
               <div class="panel-body" id="formularioregistros">
                 <form name="formulario" id="formulario" method="POST">
 
@@ -173,6 +218,8 @@ require 'header.php';
 
                     <button class="btn btn-primary" onclick="activemos()" id="btnActivar"><i class="fa fa-check"></i> Activar</button>
                     <button class="btn btn-danger" onclick="desactivemos()" id="btnDesactivar"><i class="fa fa-Close"></i> Desactivar</button>
+
+                    <button class="btn btn-primary" onclick="registremosVehiculos()" id="btnRegistrarVehiculo"><i class="fa fa-save"></i> Registrar Vehiculo</button>
 
                     <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                   </div>

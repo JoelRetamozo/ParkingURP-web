@@ -1,9 +1,11 @@
 var tabla;
+var tablaSin;
 
 //Funcion que se va a ejecutar al inicio
 function init(){
 	mostrarform(false);
 	listar();
+	listarSinVehiculo();
 
 	$("#formulario").on("submit", function(e){
 		guardaryeditar(e);
@@ -182,16 +184,18 @@ function mostrarform(flag){
 	limpiar();
 
 	if(flag){
-		$("#listadoregistros").hide();
+		$("#divPanels").hide();
 		$("#formularioregistros").show();
 		$("#btnGuardar").prop("disabled", false);
 		$("#btnActivar").prop("disabled", false);
 		$("#btnDesactivar").prop("disabled", false);
 		$("#btnNuevo").hide();
 	}else{
-		$("#listadoregistros").show();
+		$("#divPanels").show();
 		$("#formularioregistros").hide();
 		$("#btnNuevo").show();
+
+		$("#btnRegistrarVehiculo").hide();
 
 		$("#id_persona").prop("disabled", false);
 	$("#id_tipo_persona").prop("disabled", false);
@@ -240,6 +244,34 @@ function listar(){
 		"ajax":
 				{
 					url: '../ajax/C_Persona.php?op=listar',
+					type: "get",
+					dataType: "json",
+					error: function(e){
+						console.log(e.responseText);
+					}
+				},
+		"bDestroy": true,
+		"iDisplayLength": 15, //Paginacion de 15 en 15
+		"order": [[ 0, "desc" ]] //Ordenar(columna, orden)
+
+	}).DataTable();
+}
+
+function listarSinVehiculo(){
+	tablaSin = $('#tbllistadoSin').dataTable(
+	{
+		"aProcessing": true, //Activamos el procesamiento de datatables
+		"aServerSide": true, //Paginacion y filtrado realizados por el servidor
+		dom: "Bfrtip", //Definimos los elementos del control de tabla
+		buttons: [
+					'copyHtml5',
+					'excelHtml5',
+					'csvHtml5',
+					'pdf'
+				],
+		"ajax":
+				{
+					url: '../ajax/C_Persona.php?op=listarSinVehiculo',
 					type: "get",
 					dataType: "json",
 					error: function(e){
@@ -366,6 +398,7 @@ function guardarPersonaXVehiculo(id_persona_new, id_vehiculo_new){
 			bootbox.alert("Se registró exitosamente.");
 			mostrarform(false);
 			tabla.ajax.reload();
+			tablaSin.ajax.reload();
 		}
 	});
 
@@ -465,6 +498,51 @@ function desactivar(id_persona){
 	$("#id_color").prop("disabled", true);
 	$("#id_tipo_vehiculo").prop("disabled", true);
 	$("#id_marca_vehiculo").prop("disabled", true);
+}
+
+function registrarVehiculo(id_persona){
+	$.post("../ajax/C_Persona.php?op=mostrar", {id_persona : id_persona}, function(data, status){
+		data = JSON.parse(data);
+		mostrarform(true);
+
+		$("#id_persona").val(data.id_persona);		
+
+		$('#id_tipo_persona').val(data.id_tipo_persona);
+		$('#id_tipo_persona').selectpicker('render');
+
+		$("#codigo").val(data.codigo);
+		$("#nombre").val(data.nombre);
+		$("#ape_paterno").val(data.ape_paterno);
+		$("#ape_materno").val(data.ape_materno);
+		$("#celular").val(data.celular);
+		$("#correo").val(data.correo);
+
+		$('#id_carrera').val(data.id_carrera);
+		$('#id_carrera').selectpicker('render');
+	});
+
+	$("#btnGuardar").hide();
+	$("#btnRegistrarVehiculo").show();
+
+	$("#id_persona").prop("disabled", true);
+	$("#id_tipo_persona").prop("disabled", true);
+	$("#codigo").prop("disabled", true);
+	$("#nombre").prop("disabled", true);
+	$("#ape_paterno").prop("disabled", true);
+	$("#ape_materno").prop("disabled", true);
+	$("#celular").prop("disabled", true);
+	$("#correo").prop("disabled", true);
+	$("#id_carrera").prop("disabled", true);
+}
+
+function registremosVehiculos(){
+
+	$("#btnRegistrarVehiculo").hide();
+
+	console.log($("#id_persona").val());
+
+	guardaryeditarVehiculo($("#id_persona").val());
+
 }
 
 init();
