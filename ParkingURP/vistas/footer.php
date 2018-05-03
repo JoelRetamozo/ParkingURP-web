@@ -1,7 +1,7 @@
 <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      In God We Trust
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2018-1 <a href="#">ParkingURP</a>.</strong> Todos los derechos reservados.

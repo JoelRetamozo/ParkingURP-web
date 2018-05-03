@@ -7,7 +7,7 @@ require 'header.php';
     <section class="content-header">
       <h1>
         Gestionar Conductor
-        <small>Aqui podrá gestionar a un Conductor</small>
+        <small>Aqui podrá gestionar a un conductor</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -25,7 +25,7 @@ require 'header.php';
           <div class="col-md-12">
             <div class="box">
               <div class="box-header with-border">
-                <h1 class="box-title">Conductor <button id="btnNuevo" class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i>Agregar</button></h1>
+                <h1 class="box-title">Conductor<span style="display:inline-block; width: 10px;"></span><button id="btnNuevo" class="btn btn-success" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i></button></h1>
                 <div class="box-tools pull-right">
                 </div>
               </div>
@@ -39,6 +39,7 @@ require 'header.php';
               <li><a href="#tab_2" data-toggle="tab">Vehiculos No Registrados</a></li>
             </ul>
             <div class="tab-content">
+            
               <div class="tab-pane active" id="tab_1">
                 <div class="panel-body table-responsive" id="listadoregistros">
                 <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
