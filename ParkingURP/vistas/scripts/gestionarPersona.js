@@ -88,7 +88,25 @@ function queTipoPersona(elemento){
 	}
 }
 
+function queTipoVehiculo(elemento){
+	$("#divPlaca").removeClass('has-error');
+	$("#divPlaca").removeClass('has-success');
+	$("#placa").val("");
+	$("#spanPlaca") .hide();
+	if(elemento=="3"){
+		$("#placa").hide();
+		$("#placa").prop("required", false);
+		$('#placa').val("BIC-384");
+	}else{
+		$("#placa").show();
+		$("#placa").prop("required", true);
+	}
+}
+
 function llenarMarcaVehiculo(elemento){
+
+	queTipoVehiculo(elemento);
+
 	$.post("../ajax/C_Marca_Vehiculo.php?op=selectMarcaVehiculo&id_tipo_vehiculo=" + elemento, function(r){
 		$("#id_marca_vehiculo").html(r);
 		$('#id_marca_vehiculo').selectpicker('refresh');
@@ -161,21 +179,89 @@ function validaPlaca(elemento){
 	$.post("../ajax/C_Vehiculo.php?op=existePlaca", {placa : elemento}, function(data, status){
 		data = JSON.parse(data);
 
-			if(data.count != 0){
-				$("#spanPlaca").show();
-				$("#iconErrorPlaca").prop("class", "fa fa-times-circle-o");
-				$("#divPlaca").addClass('has-error');
-				$("#divPlaca").removeClass('has-success');
-				$("#spanPlaca").text("Ya existe esta placa");
-				$("#btnGuardar").prop("disabled", true);
-			}else{
-				$("#spanPlaca").hide();
-				$("#iconErrorPlaca").prop("class", "fa fa-check");
-				$("#divPlaca").removeClass('has-error');
-				$("#divPlaca").addClass('has-success');
-				$("#spanPlaca").text("");
+		if(elemento.length == 7){
+
+			if($("#id_tipo_vehiculo").val() == "000"){
+
+			}else if($("#id_tipo_vehiculo").val() == "1"){
+				$("#spanCodigo").hide();
 				$("#btnGuardar").prop("disabled", false);
+				$("#btnRegistrarVehiculo").prop("disabled", false);
+
+				var expreg = /^([A-L]{1}[A-Z]{2}-\d{3})$/;
+
+				if(expreg.test(elemento)){
+					if(data.count != 0){
+						$("#spanPlaca").show();
+						$("#iconErrorPlaca").prop("class", "fa fa-times-circle-o");
+						$("#divPlaca").addClass('has-error');
+						$("#divPlaca").removeClass('has-success');
+						$("#spanPlaca").text("Ya existe esta placa");
+						$("#btnGuardar").prop("disabled", true);
+						$("#btnRegistrarVehiculo").prop("disabled", true);
+					}else{
+						$("#spanPlaca").hide();
+						$("#iconErrorPlaca").prop("class", "fa fa-check");
+						$("#divPlaca").removeClass('has-error');
+						$("#divPlaca").addClass('has-success');
+						$("#spanPlaca").text("");
+						$("#btnGuardar").prop("disabled", false);
+						$("#btnRegistrarVehiculo").prop("disabled", false);
+					}
+				}else{
+					$("#spanPlaca").show();
+					$("#divPlaca").addClass('has-error');
+					$("#divPlaca").removeClass('has-success');
+					$("#spanPlaca").text("Ingrese una placa de auto correcta");
+					$("#btnGuardar").prop("disabled", true);
+					$("#btnRegistrarVehiculo").prop("disabled", true);
+				}
+
+			}else if($("#id_tipo_vehiculo").val() == "2"){
+				$("#spanCodigo").hide();
+				$("#btnGuardar").prop("disabled", false);
+				$("#btnRegistrarVehiculo").prop("disabled", false);
+
+				var expreg = /^([M,N]{1}[A-Z]{2}-\d{3})$/;
+
+				if(expreg.test(elemento)){
+					if(data.count != 0){
+						$("#spanPlaca").show();
+						$("#iconErrorPlaca").prop("class", "fa fa-times-circle-o");
+						$("#divPlaca").addClass('has-error');
+						$("#divPlaca").removeClass('has-success');
+						$("#spanPlaca").text("Ya existe esta placa");
+						$("#btnGuardar").prop("disabled", true);
+						$("#btnRegistrarVehiculo").prop("disabled", true);
+					}else{
+						$("#spanPlaca").hide();
+						$("#iconErrorPlaca").prop("class", "fa fa-check");
+						$("#divPlaca").removeClass('has-error');
+						$("#divPlaca").addClass('has-success');
+						$("#spanPlaca").text("");
+						$("#btnGuardar").prop("disabled", false);
+						$("#btnRegistrarVehiculo").prop("disabled", false);
+					}
+				}else{
+					$("#spanPlaca").show();
+					$("#divPlaca").addClass('has-error');
+					$("#divPlaca").removeClass('has-success');
+					$("#spanPlaca").text("Ingrese una placa de moto correcta");
+					$("#btnGuardar").prop("disabled", true);
+					$("#btnRegistrarVehiculo").prop("disabled", true);
+				}
+			}else{
+			
 			}
+
+		}else{
+			$("#spanPlaca").show();
+			$("#divPlaca").addClass('has-error');
+			$("#divPlaca").removeClass('has-success');
+			$("#spanPlaca").text("Ingrese una placa formato ABC-123");
+			$("#btnGuardar").prop("disabled", true);
+			$("#btnRegistrarVehiculo").prop("disabled", true);
+		}
 	});
 };
 
