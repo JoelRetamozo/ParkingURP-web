@@ -55,16 +55,6 @@ require 'header.php';
                   </thead>
                   <tbody>
                   </tbody>
-                  <tfoot>
-                    <th>Codigo</th>
-                    <th>Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Tipo de Persona</th>
-                    <th>Placa</th>
-                    <th>Editar</th>
-                    <th>Activar/Desactivar</th>
-                  </tfoot>
                 </table>
               </div>
               </div>
@@ -82,14 +72,6 @@ require 'header.php';
                   </thead>
                   <tbody>
                   </tbody>
-                  <tfoot>
-                    <th>Codigo</th>
-                    <th>Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Tipo de Persona</th>
-                    <th>Registrar</th>
-                  </tfoot>
                 </table>
               </div>
               </div>
