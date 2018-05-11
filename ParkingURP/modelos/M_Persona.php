@@ -10,10 +10,10 @@ Class M_Persona{
 	}
 
 	//Implementamos un metodo para insertar registros
-	public function insertar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $id_tipo_persona, $id_carrera){
-		$sql = "INSERT INTO T_Persona(codigo, nombre, ape_paterno, ape_materno, celular, correo, id_tipo_persona, id_carrera) VALUES ('$codigo', '$nombre', '$ape_paterno', '$ape_materno', '$celular', '$correo', '$id_tipo_persona', '$id_carrera')";
+	public function insertar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $carrera, $tipo_persona){
+		$sql = "INSERT INTO T_Persona(codigo, nombre, ape_paterno, ape_materno, celular, correo, carrera, tipo_persona) VALUES ('$codigo', '$nombre', '$ape_paterno', '$ape_materno', '$celular', '$correo', '$carrera', '$tipo_persona')";
 
-		return ejecutarConsulta_retornarID($sql);
+		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un metodo para editar registros
