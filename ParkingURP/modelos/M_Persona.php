@@ -13,7 +13,7 @@ Class M_Persona{
 	public function insertar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $carrera, $tipo_persona){
 		$sql = "INSERT INTO T_Persona(codigo, nombre, ape_paterno, ape_materno, celular, correo, carrera, tipo_persona) VALUES ('$codigo', '$nombre', '$ape_paterno', '$ape_materno', '$celular', '$correo', '$carrera', '$tipo_persona')";
 
-		return ejecutarConsulta($sql);
+		return ejecutarConsulta_retornarID($sql);
 	}
 
 	//Implementamos un metodo para editar registros
@@ -41,6 +41,11 @@ Class M_Persona{
 
 	public function existeCodigo($codigo){
 		$sql = "SELECT COUNT(*) AS count FROM T_Persona WHERE codigo = '$codigo'";
+		return ejecutarConsultaSimpleFila($sql);
+	}
+
+	public function buscarByCodigo($codigo){
+		$sql = "SELECT * FROM T_Persona WHERE codigo = '$codigo'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 }

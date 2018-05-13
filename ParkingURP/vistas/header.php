@@ -266,8 +266,10 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MODULOS</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-user"></i> <span>Conductor</span></a></li>
+        <li class="active"><a href="registrarConductores.php"><i class="fa fa-user"></i> <span>Registrar Conductores</span></a></li>
         <!---<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>-->
+
+        <li><a href="controlarIngreso.php"><i class="fa fa-cogs"></i> <span>Controlar Ingreso</span></a></li>
         
         <!--<li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>

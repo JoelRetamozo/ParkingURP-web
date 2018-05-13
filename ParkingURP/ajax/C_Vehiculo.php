@@ -30,5 +30,28 @@ switch ($_GET["op"]) {
 			$rspta = $m_vehiculo->existePlaca($placa);
 			echo json_encode($rspta);
 		break;
+
+	case 'listarVehiculo':
+		$codigo = isset($_REQUEST["codigo"])? limpiarCadena($_REQUEST["codigo"]):"";
+		$tipo_vehiculo = isset($_REQUEST["tipo_vehiculo"])? limpiarCadena($_REQUEST["tipo_vehiculo"]):"";
+
+			$rspta = $m_vehiculo->buscarVehiculo($codigo, $tipo_vehiculo);
+		//Vamos a declarar un Array para almacenar todos los registros que voy  listar
+		$data = Array();
+
+		while ($reg = $rspta->fetch_object()) {
+			$data[] = array(
+				"0" => $reg->placa,
+				"1" => ($reg->estado == 0)?'<button class="btn btn-primary" onclick="activar('.$reg->id_vehiculo.')"><i class="fa fa-check"></i></button>': '<span class="label bg-green">Activado</span>',
+				"2" => '<button class="btn btn-success" onclick="ingreso('.$reg->id_vehiculo.')"><i class="fa fa-pencil"></i> Ingreso</button>'
+				);
+		}
+		$results = array(
+			"sEcho" => 1, //Informacion para el datatables
+			"iTotalRecords" => count($data), //enviamos el total registros al datatable
+			"iTotalDisplayRecords" => count($data), //enviamos el total registros a visualizar
+			"aaData" => $data);
+		echo json_encode($results);
+		break;
 }
 ?>

@@ -5,7 +5,7 @@ Class M_Usuario{
 	//Implementamos nuestro constructor
 	public function __construct(){
 	}
-	public function insertar($codigo, $correo, $id_persona){
+	public function insertar($codigo, $correo, $perfil, $id_persona){
 		//$password = "ekjhbdkfujbfsdposdf";
 		//enviarMail($correo, $password);
 		$caracteres='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -15,7 +15,7 @@ Class M_Usuario{
   			$pass.= $caracteres[$x];
 		}
 
-		$sql = "INSERT INTO T_Usuario(codigo, password, estado, id_persona) VALUES ('$codigo', '$pass', '1', '$id_persona')";
+		$sql = "INSERT INTO T_Usuario(codigo, password, estado, perfil, id_persona) VALUES ('$codigo', '$pass', '1', '$perfil', '$id_persona')";
 		return ejecutarConsulta($sql);
 	}
 

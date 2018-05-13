@@ -4,8 +4,10 @@ require_once "../modelos/M_Persona.php";
 
 $m_persona = new M_Persona();
 
-$id_persona = isset($_POST["id_persona"])? limpiarCadena($_POST["id_persona"]):"";
 $codigo = isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
+
+/*
+$id_persona = isset($_POST["id_persona"])? limpiarCadena($_POST["id_persona"]):"";
 $nombre = isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
 $ape_paterno = isset($_POST["ape_paterno"])? limpiarCadena($_POST["ape_paterno"]):"";
 $ape_materno = isset($_POST["ape_materno"])? limpiarCadena($_POST["ape_materno"]):"";
@@ -13,21 +15,18 @@ $celular = isset($_POST["celular"])? limpiarCadena($_POST["celular"]):"";
 $correo = isset($_POST["correo"])? limpiarCadena($_POST["correo"]):"";
 $id_tipo_persona = isset($_POST["id_tipo_persona"])? limpiarCadena($_POST["id_tipo_persona"]):"";
 $id_carrera = isset($_POST["id_carrera"])? limpiarCadena($_POST["id_carrera"]):"";
+*/
 
 switch ($_GET["op"]) {
-	case 'guardaryeditar':
-
-		if(empty($id_persona)){
-			$rspta = $m_persona->insertar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $id_tipo_persona, $id_carrera);
-			echo $rspta;
-		}else{
-			$rspta = $m_persona->editar($id_persona, $codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $id_tipo_persona, $id_carrera);
-			echo $rspta ? "Persona actualizada" : "Persona no se pudo actualizar";
-		}
-		break;
 	
 	case 'mostrar':
 		$rspta = $m_persona->mostrar($id_persona);
+		//Codificar el resultado utilizando json
+			echo json_encode($rspta);
+		break;
+
+	case 'buscarByCodigo':
+		$rspta = $m_persona->buscarByCodigo($codigo);
 		//Codificar el resultado utilizando json
 			echo json_encode($rspta);
 		break;
@@ -57,32 +56,51 @@ switch ($_GET["op"]) {
 		echo json_encode($results);
 		break;
 
-	case 'listarSinVehiculo':
-		$rspta = $m_persona->listarSinVehiculo();
-		//Vamos a declarar un Array para almacenar todos los registros que voy  listar
-		$data = Array();
+	case 'registrarExcel':
 
-		while ($reg = $rspta->fetch_object()) {
-			$data[] = array(
-				"0" => $reg->codigo,
-				"1" => $reg->nombre,
-				"2" => $reg->ape_paterno,
-				"3" => $reg->ape_materno,
-				"4" => $reg->tipo_persona,
-				"5" => '<button class="btn btn-primary" onclick="registrarVehiculo('.$reg->id_persona.')">Registrar Vehiculo</button>'
-				);
-		}
-		$results = array(
-			"sEcho" => 1, //Informacion para el datatables
-			"iTotalRecords" => count($data), //enviamos el total registros al datatable
-			"iTotalDisplayRecords" => count($data), //enviamos el total registros a visualizar
-			"aaData" => $data);
-		echo json_encode($results);
-		break;
+	require_once "../modelos/M_Usuario.php";
 
-	case 'existeCodigo':
-			$rspta = $m_persona->existeCodigo($codigo);
-			echo json_encode($rspta);
+	$m_usuario = new M_Usuario();
+
+	if($_FILES['archivo']['error'] > 0){
+		$rspta = "Error: " . $_FILES['archivo']['error'];
+	}else{
+
+		move_uploaded_file($_FILES['archivo']['tmp_name'], '../files/Conductores/'.$_FILES['archivo']['name']);
+		$rspta = "Se subio";
+		/*$extension = explode(".", $_FILES['conductores']['name']);
+
+		if($extension == 'xslx' || $extension == 'xsl'){
+
+				$archivo = round(microtime(true)) . "." . end($extension);
+
+				move_uploaded_file($_FILES['conductores']['tmp_name'], "../files/Conductores/" . $archivo);
+			}*/
+	}
+
+	require_once '../public/Classes/PHPExcel/IOFactory.php';
+
+	$objPHPExcel = PHPEXCEL_IOFactory::load('../files/Conductores/' . $_FILES['archivo']['name']);
+	$objPHPExcel->setActiveSheetIndex(0);
+	$numRows = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+
+	for ($i=2; $i <= $numRows ; $i++) { 
+		$codigo = $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue();
+		$nombre = $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue();
+		$ape_paterno = $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue();
+		$ape_materno = $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue();
+		$correo = $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue();
+		$celular = $objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue();
+		$tipo_persona = $objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue();
+		$carrera = $objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue();
+
+		$id_persona_new = $m_persona->insertar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $carrera, $tipo_persona);
+
+		$rspta = $m_usuario->insertar($codigo, $correo, 'Conductor', $id_persona_new);
+	}
+
+	echo $rspta;
+
 		break;
 }
 
