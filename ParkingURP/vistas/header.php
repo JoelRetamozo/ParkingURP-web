@@ -1,3 +1,11 @@
+<?php 
+//Si ya se ha iniciado sesion
+if(strlen(session_id()) < 1)
+  session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -39,6 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -266,10 +275,19 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MODULOS</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="registrarConductores.php"><i class="fa fa-user"></i> <span>Registrar Conductores</span></a></li>
+
+        <?php
+            if($_SESSION['perfil'] == "Supervisor"){
+              echo '<li class="active"><a href="registrarConductores.php"><i class="fa fa-user"></i> <span>Registrar Conductores</span></a></li>';
+            } 
+            ?>
         <!---<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>-->
 
-        <li><a href="controlarIngreso.php"><i class="fa fa-cogs"></i> <span>Controlar Ingreso</span></a></li>
+        <?php
+            if($_SESSION['perfil'] == "Vigilante"){
+              echo '<li><a href="controlarIngreso.php"><i class="fa fa-cogs"></i> <span>Controlar Ingreso</span></a></li>';
+            } 
+            ?>
         
         <!--<li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>

@@ -1,14 +1,14 @@
 <?php
 //Incluimos inicialmente la conexion a la base de datos
 require "../config/Conexion.php";
-Class M_WS_Vehiculo{
+Class M_Invitado{
 	//Implementamos nuestro constructor
 	public function __construct(){
 	}
 
-	public function mostrarVehiculo($placa){
-		$sql = "SELECT * FROM WS_Vehiculo WHERE placa = '$placa'";
-		return ejecutarConsultaSimpleFila($sql);
+	public function insertar($dni){
+		$sql = "INSERT INTO T_Invitado(dni) VALUES('$dni')";
+		return ejecutarConsulta_retornarID($sql);
 	}
 
 }

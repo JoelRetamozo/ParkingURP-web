@@ -40,5 +40,11 @@ Class M_Usuario{
 			"Password: " . $password;
 		mail($correo, $subject, $message);
 	}
+
+	public function verificar($codigo, $password){
+		$sql = "SELECT p.nombre, p.ape_paterno, p.ape_materno, u.codigo, u.password, u.perfil FROM T_Usuario u INNER JOIN T_Persona p ON u.id_persona = p.id_persona AND u.codigo = '$codigo' AND u.password ='$password' AND u.estado = '1'";
+
+		return ejecutarConsulta($sql);
+	}
 }
 ?>

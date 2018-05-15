@@ -43,7 +43,7 @@ switch ($_GET["op"]) {
 			$data[] = array(
 				"0" => $reg->placa,
 				"1" => ($reg->estado == 0)?'<button class="btn btn-primary" onclick="activar('.$reg->id_vehiculo.')"><i class="fa fa-check"></i></button>': '<span class="label bg-green">Activado</span>',
-				"2" => '<button class="btn btn-success" onclick="ingreso('.$reg->id_vehiculo.')"><i class="fa fa-pencil"></i> Ingreso</button>'
+				"2" => '<button class="btn btn-success" data-toggle="modal" data-target="#modal-default" onclick="datosVehiculo('."'".$reg->placa."', ".$reg->id_persona.')"><i class="fa fa-pencil"></i> Ingreso</button>'
 				);
 		}
 		$results = array(

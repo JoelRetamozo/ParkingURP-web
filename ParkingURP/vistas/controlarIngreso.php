@@ -177,6 +177,69 @@ require 'header.php';
     <!-- /.content -->
   </div>
 
+  <div class="modal fade" id="modal-default">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <form name="frmIngreso" id="frmIngreso" method="POST">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title">Registrar Ingreso</h4>
+                </div>
+                <div class="modal-body">
+
+                  <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label>Tipo Vehiculo: </label>
+                    <div class="info-box">
+                      <span class="info-box-icon bg-green"><i id="icono_tipo_vehiculo" class="fa"></i></span>
+
+                      <div class="info-box-content">
+                        <span id="tipo_vehiculo" class="info-box-number"></span>
+                      </div>
+                      <!-- /.info-box-content -->
+                    </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Placa: </label>
+                    <input type="hidden" name="id_persona" id="id_persona">
+                    <input type="text" class="form-control" name="placa" id="placa" readonly="true">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Marca: </label>
+                    <input type="text" class="form-control" name="marca" id="marca" readonly="true">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Modelo: </label>
+                    <input type="text" class="form-control" name="modelo" id="modelo" readonly="true">
+                  </div>
+                  <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label>Color: </label>
+                    <input type="text" class="form-control" name="color" id="color" readonly="true">
+                  </div>
+                </div>
+                <div class="checkbox col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <label>
+                    <input id="checkInvitado" onchange="mostrarAddInvitados(this)" type="checkbox"> Añadir Invitados
+                  </label>
+                </div>
+
+                <div id="masInvitado" class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal" onclick="ClearRegistroControl()">Cancelar</button>
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Registrar</button>
+                </div>               
+              </form>
+
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
 <?php
 require 'footer.php';
 ?>
