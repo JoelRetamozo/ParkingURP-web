@@ -84,7 +84,7 @@ require 'header.php';
         <!-- /.col -->
       </div>
 
-              <div class="panel-body" id="formularioregistros">
+              <div class="panel-body">
                 <form name="formulario" id="formulario" method="POST">
 
                 <div class="col-md-12">

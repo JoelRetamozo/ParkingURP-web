@@ -21,7 +21,18 @@ require 'header.php';
         | Your Page Content Here |
         -------------------------->
         <div class="row">
-          <div class="col-md-12">
+
+        <div class="col-md-12">
+          <!-- Custom Tabs -->
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_1" data-toggle="tab">Conductores URP</a></li>
+              <li><a href="#tab_2" data-toggle="tab">Invitados</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+
+                <div class="col-md-12">
             <div class="box">
 
               <div class="panel-body">
@@ -172,6 +183,60 @@ require 'header.php';
 
             </div>
           </div>
+
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_2">
+
+                <form id="frmInvitado" method="POST">
+              
+                <div class="col-md-12">
+                  <div class="box box-success box-solid">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Invitado</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                      </div>
+                      <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <label>DNI:</label>
+                          <input type="text" class="form-control" name="codigoInvitado" id="codigoInvitado" placeholder="Ingrese DNI" required>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <label>Nombre:</label>
+                          <input type="text" class="form-control" name="nombreInvitado" id="nombreInvitado" placeholder="Ingrese Nombre" required>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <label>Apellido Paterno:</label>
+                          <input type="text" class="form-control" name="ape_paternoInvitado" id="ape_paternoInvitado" placeholder="Ingrese Apellido Paterno" required>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <label>Apellido Materno:</label>
+                          <input type="text" class="form-control" name="ape_maternoInvitado" id="ape_maternoInvitado" placeholder="Ingrese Apellido Materno" required>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+                  </div>
+                  <!-- /.box -->
+                </div>
+                </form>
+
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->
+        </div>
+
+
         </div>
     </section>
     <!-- /.content -->

@@ -9,12 +9,15 @@ function init(){
 	$("#frmIngreso").on("submit", function(e){
 		registrarControl(e);
 	});
+
+	ClearAll();
 }
 
 function ClearAll(){
 	$("#codigo").val("");
 	ClearFormBusqueda();
 	ClearRegistroControl();
+	ClearInvitado();
 }
 
 function ClearFormBusqueda(){
@@ -35,6 +38,14 @@ function ClearRegistroControl(){
 	$("#id_persona").val("");
 	$('#checkInvitado').prop("checked", false);
 	mostrarAddInvitados($('#checkInvitado'));
+}
+
+function ClearInvitado(){
+
+	$("#codigoInvitado").val("");
+	$("#nombreInvitado").val("");
+	$("#ape_paternoInvitado").val("");
+	$("#ape_maternoInvitado").val("");
 }
 
 function mostrarFormBusqueda(flag){

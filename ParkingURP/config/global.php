@@ -2,6 +2,7 @@
 
 //Ip de la pc servidor de base de datos
 define("DB_HOST", "localhost");
+//define("DB_HOST", "http://192.168.1.9:82");
 
 //NOmbre de la base de datos
 define("DB_NAME", "BD_ParkingURP");
