@@ -67,27 +67,27 @@ if($_SESSION['perfil'] == "Vigilante"){
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Tipo de Conductor:</label>
-                        <input type="text" class="form-control" name="tipo_persona" id="tipo_persona" readonly="true">
+                        <input type="text" class="form-control" name="tipo_persona" id="tipo_persona" disabled="false" readonly="true">
                       </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Nombre:</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" readonly="true">
+                        <input type="text" class="form-control" name="nombre" id="nombre" disabled="false" readonly="true">
                       </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Apellido Paterno:</label>
-                        <input type="text" class="form-control" name="ape_paterno" id="ape_paterno" readonly="true">
+                        <input type="text" class="form-control" name="ape_paterno" id="ape_paterno" disabled="false" readonly="true">
                       </div>
 
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Apellido Materno:</label>
-                        <input type="text" class="form-control" name="ape_materno" id="ape_materno" readonly="true">
+                        <input type="text" class="form-control" name="ape_materno" id="ape_materno" disabled="false" readonly="true">
                       </div>
 
                   <div id="divCarrera" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <label>Carrera:</label>
-                        <input type="text" class="form-control" name="carrera" id="carrera" readonly="true">
+                        <input type="text" class="form-control" name="carrera" id="carrera" disabled="false" readonly="true">
                       </div>
 
                     <div class="col-md-12">
@@ -272,7 +272,7 @@ if($_SESSION['perfil'] == "Vigilante"){
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Placa: </label>
-                    <input type="text" name="codigo" id="codigo_control">
+                    <input type="hidden" name="codigo" id="codigo_control">
                     <input type="text" class="form-control" name="placa" id="placa" readonly="true">
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -335,8 +335,8 @@ if($_SESSION['perfil'] == "Vigilante"){
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Marca: </label>
-                    <input type="text" name="codigo" id="codigo_Bici_control">
-                    <input type="text" name="placa" id="placa_Bici_control">
+                    <input type="hidden" name="codigo" id="codigo_Bici_control">
+                    <input type="hidden" name="placa" id="placa_Bici_control">
                     <input type="text" class="form-control" name="marca" id="marca_modal_bici" readonly="true">
                   </div>
                   <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">

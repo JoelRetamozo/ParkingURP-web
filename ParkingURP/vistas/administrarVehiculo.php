@@ -40,13 +40,13 @@ require 'header.php';
                       <form class="col-md-12" action="controlarIngreso.php" method="POST">
                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                           <label>Seleccione Tipo de Vehiculo:</label>
-                          <input type="text" name="DNIInvitado" value="<?php if(isset($_POST["codigoInvitado"])){echo $_POST['codigoInvitado'];}else{echo "";}?>">
-                          <input type="text" name="nombreInvitado" value="<?php if(isset($_POST["nombreInvitado"])){echo $_POST['nombreInvitado'];}else{echo "";}?>">
-                          <input type="text" name="apePInvitado" value="<?php if(isset($_POST["ape_paternoInvitado"])){echo $_POST['ape_paternoInvitado'];}else{echo "";}?>">
-                          <input type="text" name="apeMInvitado" value="<?php if(isset($_POST["ape_maternoInvitado"])){echo $_POST['ape_maternoInvitado'];}else{echo "";}?>">
-                          <input type="text" name="codigo" id="codigo" value="<?php if(isset($_POST["codigoAEnviar"])){echo $_POST['codigoAEnviar'];}else{echo "";}?>">
-                          <input type="text" name="tipo_vehiculo" id="tipoVehiculoEnviado" value="<?php echo $_POST['tipoVehiculoAEnviar']; ?>">
-                          <input type="text" value="<?php echo $_POST['tipoVehiculoAEnviar']; ?>">
+                          <input type="hidden" name="DNIInvitado" value="<?php if(isset($_POST["codigoInvitado"])){echo $_POST['codigoInvitado'];}else{echo "";}?>">
+                          <input type="hidden" name="nombreInvitado" value="<?php if(isset($_POST["nombreInvitado"])){echo $_POST['nombreInvitado'];}else{echo "";}?>">
+                          <input type="hidden" name="apePInvitado" value="<?php if(isset($_POST["ape_paternoInvitado"])){echo $_POST['ape_paternoInvitado'];}else{echo "";}?>">
+                          <input type="hidden" name="apeMInvitado" value="<?php if(isset($_POST["ape_maternoInvitado"])){echo $_POST['ape_maternoInvitado'];}else{echo "";}?>">
+                          <input type="hidden" name="codigo" id="codigo" value="<?php if(isset($_POST["codigoAEnviar"])){echo $_POST['codigoAEnviar'];}else{echo "";}?>">
+                          <input type="hidden" name="tipo_vehiculo" id="tipoVehiculoEnviado" value="<?php echo $_POST['tipoVehiculoAEnviar']; ?>">
+                          <input type="hidden" value="<?php echo $_POST['tipoVehiculoAEnviar']; ?>">
                           <select id="tipo_vehiculo" onchange="mostrarTipoVehiculo(this.value)" class="form-control">
                             <option value="000">---SELECCIONE---</option>
                             <option value="Auto">Auto</option>
@@ -103,11 +103,11 @@ require 'header.php';
                     <!-- /.box-body -->
                   </div>
                   <form action="controlarIngreso.php" method="POST">
-                        <input type="text" name="codigo" value="<?php if(isset($_POST["codigoAEnviar"])){echo $_POST['codigoAEnviar'];}else{echo "";}?>">
+                        <input type="hidden" name="codigo" value="<?php if(isset($_POST["codigoAEnviar"])){echo $_POST['codigoAEnviar'];}else{echo "";}?>">
                         <input type="text" name="DNIInvitado" value="<?php if(isset($_POST["codigoInvitado"])){echo $_POST['codigoInvitado'];}else{echo "";}?>">
-                          <input type="text" name="nombreInvitado" value="<?php if(isset($_POST["nombreInvitado"])){echo $_POST['nombreInvitado'];}else{echo "";}?>">
-                          <input type="text" name="apePInvitado" value="<?php if(isset($_POST["ape_paternoInvitado"])){echo $_POST['ape_paternoInvitado'];}else{echo "";}?>">
-                          <input type="text" name="apeMInvitado" value="<?php if(isset($_POST["ape_maternoInvitado"])){echo $_POST['ape_maternoInvitado'];}else{echo "";}?>">
+                          <input type="hidden" name="nombreInvitado" value="<?php if(isset($_POST["nombreInvitado"])){echo $_POST['nombreInvitado'];}else{echo "";}?>">
+                          <input type="hidden" name="apePInvitado" value="<?php if(isset($_POST["ape_paternoInvitado"])){echo $_POST['ape_paternoInvitado'];}else{echo "";}?>">
+                          <input type="hidden" name="apeMInvitado" value="<?php if(isset($_POST["ape_maternoInvitado"])){echo $_POST['ape_maternoInvitado'];}else{echo "";}?>">
                         <button type="submit" class="btn btn-default"> Regresar</button>
                       </form>
                   <!-- /.box -->
