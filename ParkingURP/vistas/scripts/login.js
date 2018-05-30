@@ -5,7 +5,7 @@ $("#frmAcceso").on('submit', function(e){
 
 	$.post("../ajax/C_Usuario.php?op=verificar",{"codigo":codigo, "password":password}, function(data){
 		if(data!="null"){
-			$(location).attr("href","categoria.php");
+			$(location).attr("href","index.php");
 		}else{
 			bootbox.alert("Usuario y/o Password incorrectos");
 		}

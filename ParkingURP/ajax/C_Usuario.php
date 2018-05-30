@@ -29,21 +29,21 @@ switch ($_GET["op"]) {
 
 	case 'verificar':
 
-	$rspta = $m_usuario->verificar($codigo, $password);
+		$rspta = $m_usuario->verificar($codigo, $password);
 
-	//Como me esta devolviendo los valores de cada uno de los campos de ese usuario
-	$fetch = $rspta->fetch_object();
+		//Como me esta devolviendo los valores de cada uno de los campos de ese usuario
+		$fetch = $rspta->fetch_object();
 
-	if(isset($fetch)){
-		//Declaramos las variables de sesion
-		$_SESSION['nombre']=$fetch->nombre;
-		$_SESSION['ape_paterno']=$fetch->ape_paterno;
-		$_SESSION['ape_materno']=$fetch->ape_materno;
-		$_SESSION['codigo']=$fetch->codigo;
-		$_SESSION['perfil']=$fetch->perfil;
-	}
+		if(isset($fetch)){
+			//Declaramos las variables de sesion
+			$_SESSION['nombre']=$fetch->nombre;
+			$_SESSION['ape_paterno']=$fetch->ape_paterno;
+			$_SESSION['ape_materno']=$fetch->ape_materno;
+			$_SESSION['codigo']=$fetch->codigo;
+			$_SESSION['perfil']=$fetch->perfil;
+		}
 
-	echo json_encode($fetch);
+		echo json_encode($fetch);
 	break;
 
 	case 'salir':
@@ -54,7 +54,7 @@ switch ($_GET["op"]) {
 	session_destroy();
 
 	//Redireccionar al index.php
-	header("Location: ../index.php");
+	header("Location: ../../index.php");
 
 	break;
 	

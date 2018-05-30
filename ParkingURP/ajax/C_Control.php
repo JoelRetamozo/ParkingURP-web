@@ -1,7 +1,7 @@
 <?php
 require_once "../modelos/M_Control.php";
 $m_control = new M_Control();
-$id_persona = isset($_POST["id_persona"])? limpiarCadena($_POST["id_persona"]):"";
+$codigo = isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
 $flag_quedarse = isset($_POST["flag_quedarse"])? limpiarCadena($_POST["flag_quedarse"]):"";
 $motivo = isset($_POST["motivo"])? limpiarCadena($_POST["motivo"]):"";
 
@@ -9,7 +9,19 @@ switch ($_GET["op"]) {
 	case 'guardar':
 
 		//$id_control = $m_control->insertar($flag_quedarse, $motivo, $id_persona);
-		$id_control = $m_control->insertar('0', null, $id_persona);
+		$id_control = $m_control->insertar('0', null, $codigo);
+
+		require_once "../modelos/M_Persona.php";
+		$m_persona = new M_Persona();
+
+		$rspta3 = $m_persona->editarEstado($codigo, "2");
+
+		require_once "../modelos/M_Vehiculo.php";
+		$m_vehiculo = new M_Vehiculo();
+
+		$placa = isset($_POST["placa"])? limpiarCadena($_POST["placa"]):"";
+
+		$rspta4 = $m_vehiculo->editarEstado($placa, "2");
 
 		require_once "../modelos/M_Invitado.php";
 		$m_invitado = new M_Invitado();
@@ -21,13 +33,12 @@ switch ($_GET["op"]) {
 
 			$dni_invitados = $_POST['invitados'];
 			foreach($dni_invitados as $dni){
-				$id_invitado = $m_invitado->insertar($dni);
+				$rspta2 = $m_invitado->insertar($dni);
 
-				$rspta = $m_invitado_x_control->insertar($id_invitado, $id_control);
+				$rspta = $m_invitado_x_control->insertar($dni, $id_control);
 			}
 
 		}
 		break;
-	
 }
 ?>

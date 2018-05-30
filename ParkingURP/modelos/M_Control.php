@@ -6,8 +6,8 @@ Class M_Control{
 	public function __construct(){
 	}
 
-	public function insertar($flag_quedarse, $motivo, $id_persona){
-		$sql = "INSERT INTO T_Control(flag_quedarse, motivo, id_persona) VALUES('$flag_quedarse', '$motivo', '$id_persona')";
+	public function insertar($flag_quedarse, $motivo, $codigo){
+		$sql = "INSERT INTO T_Control(flag_quedarse, motivo, codigo) VALUES('$flag_quedarse', '$motivo', '$codigo')";
 		return ejecutarConsulta_retornarID($sql);
 	}
 

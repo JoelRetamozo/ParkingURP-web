@@ -5,20 +5,15 @@ Class M_Vehiculo{
 	//Implementamos nuestro constructor
 	public function __construct(){
 	}
-	//Implementamos un metodo para insertar registros
-	public function insertar($placa, $modelo, $id_color, $id_marca_vehiculo, $id_tipo_vehiculo){
-		$sql = "INSERT INTO T_Vehiculo(placa, modelo, id_color, id_marca_vehiculo, id_tipo_vehiculo) VALUES ('$placa', '$modelo', '$id_color', '$id_tipo_vehiculo', '$id_marca_vehiculo')";
-		return ejecutarConsulta_retornarID($sql);
-	}
-	//Implementamos un metodo para editar registros
-	public function editar($id_vehiculo, $placa, $modelo, $id_color, $id_marca_vehiculo, $id_tipo_vehiculo){
-		$sql = "UPDATE T_Vehiculo SET placa = '$placa', modelo = '$modelo', id_color = '$id_color', id_marca_vehiculo = '$id_marca_vehiculo', id_tipo_vehiculo = '$id_tipo_vehiculo' WHERE id_vehiculo = '$id_vehiculo'";
+
+	public function insertar($placa, $descripcion, $estado, $tipo_vehiculo){
+		$sql = "INSERT INTO T_Vehiculo(placa, descripcion, estado, tipo_vehiculo) VALUES('$placa', '$descripcion', '$estado', '$tipo_vehiculo')";
 		return ejecutarConsulta($sql);
 	}
 
-	public function mostrar($id_persona){
-		$sql = "SELECT * FROM T_Vehiculo v INNER JOIN t_persona_has_t_vehiculo pXv ON v.id_vehiculo = pXv.id_vehiculo INNER JOIN t_persona p ON p.id_persona = pXv.id_persona AND p.id_persona = '$id_persona'";
-		return ejecutarConsultaSimpleFila($sql);
+	public function eliminar($placa){
+		$sql = "DELETE FROM T_Vehiculo WHERE placa = '$placa'";
+		return ejecutarConsulta($sql);
 	}
 
 	public function existePlaca($placa){
@@ -27,7 +22,17 @@ Class M_Vehiculo{
 	}
 
 	public function buscarVehiculo($codigo, $tipo_vehiculo){
-		$sql = "SELECT p.id_persona, v.id_vehiculo, v.placa, v.estado FROM T_Vehiculo v INNER JOIN T_Persona_has_T_Vehiculo pXv ON pXv.id_vehiculo = v.id_vehiculo AND v.tipo_vehiculo = '$tipo_vehiculo' INNER JOIN T_Persona p ON pXv.id_persona = p.id_persona AND codigo = '$codigo'";
+		$sql = "SELECT v.placa FROM T_Vehiculo v INNER JOIN T_Persona_has_T_Vehiculo pXv ON pXv.placa = v.placa AND v.tipo_vehiculo = '$tipo_vehiculo' INNER JOIN T_Persona p ON pXv.codigo = p.codigo AND p.codigo = '$codigo'  AND v.estado != '2'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function mostrarBici($placa, $codigo){
+		$sql = "SELECT v.descripcion, v.estado FROM T_Vehiculo v INNER JOIN t_persona_has_t_vehiculo pXv ON pXv.placa = v.placa AND pXv.codigo = '$codigo' AND v.placa = '$placa' AND v.estado != '2'";
+		return ejecutarConsultaSimpleFila($sql);
+	}
+
+	public function editarEstado($placa, $estado){
+		$sql = "UPDATE T_Vehiculo SET estado = '$estado' WHERE placa = '$placa'";
 		return ejecutarConsulta($sql);
 	}
 }

@@ -7,8 +7,8 @@ Class M_Invitado{
 	}
 
 	public function insertar($dni){
-		$sql = "INSERT INTO T_Invitado(dni) VALUES('$dni')";
-		return ejecutarConsulta_retornarID($sql);
+		$sql = "INSERT INTO T_Invitado VALUES('$dni')";
+		return ejecutarConsulta($sql);
 	}
 
 }

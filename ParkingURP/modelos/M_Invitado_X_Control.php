@@ -6,8 +6,8 @@ Class M_Invitado_X_Control{
 	public function __construct(){
 	}
 
-	public function insertar($id_invitado, $id_control){
-		$sql = "INSERT INTO T_Invitado_has_T_Control(id_invitado, id_control) VALUES('$id_invitado','$id_control')";
+	public function insertar($dni, $id_control){
+		$sql = "INSERT INTO T_Invitado_has_T_Control(id_control, DNI) VALUES('$id_control', '$dni')";
 		return ejecutarConsulta($sql);
 	}
 

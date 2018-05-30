@@ -85,7 +85,7 @@ if($_SESSION['perfil'] == "Supervisor"){
 <?php
 
 }else{
-  require 'noacceso.php';
+  require 'home.php';
 }
 
 require 'footer.php';
