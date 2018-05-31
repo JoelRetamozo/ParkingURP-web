@@ -104,7 +104,7 @@ require 'header.php';
                   </div>
                   <form action="controlarIngreso.php" method="POST">
                         <input type="hidden" name="codigo" value="<?php if(isset($_POST["codigoAEnviar"])){echo $_POST['codigoAEnviar'];}else{echo "";}?>">
-                        <input type="text" name="DNIInvitado" value="<?php if(isset($_POST["codigoInvitado"])){echo $_POST['codigoInvitado'];}else{echo "";}?>">
+                        <input type="hidden" name="DNIInvitado" value="<?php if(isset($_POST["codigoInvitado"])){echo $_POST['codigoInvitado'];}else{echo "";}?>">
                           <input type="hidden" name="nombreInvitado" value="<?php if(isset($_POST["nombreInvitado"])){echo $_POST['nombreInvitado'];}else{echo "";}?>">
                           <input type="hidden" name="apePInvitado" value="<?php if(isset($_POST["ape_paternoInvitado"])){echo $_POST['ape_paternoInvitado'];}else{echo "";}?>">
                           <input type="hidden" name="apeMInvitado" value="<?php if(isset($_POST["ape_maternoInvitado"])){echo $_POST['ape_maternoInvitado'];}else{echo "";}?>">

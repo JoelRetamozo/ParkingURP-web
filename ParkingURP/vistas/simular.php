@@ -2,6 +2,29 @@
 require_once 'header.php';
 ?>
 
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Administrar Vehiculo
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="home.php"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="controlarIngreso.php"><i class="fa fa-dashboard"></i> Controlar Ingreso</a></li>
+        <li class="active">Administrar Vehiculo</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+      <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+        <div class="row">
+
+        <div class="col-md-12">
+
  <div class="conteiner">
    <button id="entrarmoto" onclick="entramoto()" name="entrar" class="boton"><img src="https://cdn0.iconfinder.com/data/icons/different-types-of-two-wheels-transport-in-glyph-s/128/mini-enduro-512.png" width="30" height="30"/></button>
    <button id="entrarbicicleta"onclick="entrabici()" name ="entrar" class="boton"><img src="https://image.flaticon.com/icons/svg/35/35085.svg" width="30" height="30"/></button>
@@ -46,8 +69,6 @@ require_once 'header.php';
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="200mm"
-   height="75mm"
    viewBox="0 0 780.66888 320.44846"
    version="1.1"
    id="svg8"
@@ -5542,6 +5563,13 @@ require_once 'header.php';
   </g>
 </svg>
 
+                </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+  </div> 
+
 <?php  
 require_once 'footer.php';
 ?>
@@ -5639,7 +5667,7 @@ switch(numero) {
     console.log("voy a pintar el"+elemento);
     document.getElementById(elemento).style.fill="#ff0000";
      ingresartodo(elemento);
-    actualizarArea1(elemento);     
+        
      break;
   case "1":
   var junto2;
@@ -5735,7 +5763,6 @@ switch(""+id_area) {
 function restar(id_area1){
  $.post("../ajax/C_Area.php?op=restar", {id_area:id_area1}, function(data, status){
     data = JSON.parse(data);
-    alert("la resta es :"+data);
     actualizarEspacioArea(id_area1,data);
 });   
 }
@@ -5765,6 +5792,7 @@ function ingresartodo(elemento){
     success: function(datos){
       bootbox.alert(datos);
     vehiculosOcupados();
+    actualizarArea1(elemento); 
   }
 });
 }
@@ -5811,7 +5839,6 @@ aleatorio=0;
   document.getElementById(eliminar).style.fill="#FFB300";
   document.getElementById("lugarocupado").innerHTML="--";
   sacarvehiculo(eliminar);
-  actualizarArea1(eliminar);
   }}
   catch(err){
 //alert("el error es:"+err.message);
@@ -5830,6 +5857,7 @@ var msg=salio;
     success: function(datos){
       bootbox.alert(datos);
     vehiculosOcupados();
+    actualizarArea1(salio);
   }
   
   });
