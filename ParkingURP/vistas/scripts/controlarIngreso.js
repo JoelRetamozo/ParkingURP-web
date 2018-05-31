@@ -3,6 +3,7 @@ var tablaMotos;
 var tablaBicicletas;
 
 function init(){
+	$('#spanCodigoBusqueda').hide();
 	var codigo = $("#codigo").val();
 
 	if(codigo == ''){
@@ -35,7 +36,7 @@ function init(){
 			}
 		}
 	}else{
-		buscarConductor(codigo);
+		validarConductor(codigo);
 		var placa = $("#placaNuevoRegistro").val();
 		if(placa == ''){
 		}else{
@@ -106,30 +107,35 @@ function buscarConductor(codigo){
 	}else if(codigo == ""){
 
 	}else{
-		mostrarFormBusqueda(true);
 
 		$.post("../ajax/C_Persona.php?op=buscarByCodigo", {codigo : codigo}, function(data, status){
 		data = JSON.parse(data);
 
-		$("#nombre").val(data.nombre);
-		$("#ape_paterno").val(data.ape_paterno);
-		$("#ape_materno").val(data.ape_materno);
-		if(data.carrera != null){
-			$("#divCarrera").show();
-			$("#carrera").val(data.carrera);
-		}else{
-			$("#divCarrera").hide();
-		}
-		$('#tipo_persona').val(data.tipo_persona);
+		if(data != null){
+			mostrarFormBusqueda(true);
+			$("#nombre").val(data.nombre);
+			$("#ape_paterno").val(data.ape_paterno);
+			$("#ape_materno").val(data.ape_materno);
+			if(data.carrera != null){
+				$("#divCarrera").show();
+				$("#carrera").val(data.carrera);
+			}else{
+				$("#divCarrera").hide();
+			}
+			$('#tipo_persona').val(data.tipo_persona);
 
-		$('#codigoAEnviarAuto').val(codigo);
-		$('#codigoAEnviarMoto').val(codigo);
-		$('#codigoAEnviarBici').val(codigo);
+			$('#codigoAEnviarAuto').val(codigo);
+			$('#codigoAEnviarMoto').val(codigo);
+			$('#codigoAEnviarBici').val(codigo);
+
+			listarAutos(codigo);
+			listarMotos(codigo);
+		}else{
+			$('#spanCodigoBusqueda').text("El codigo de Conductor no existe");
+			$('#spanCodigoBusqueda').show();
+		}
 
 		});
-
-		listarAutos(codigo);
-		listarMotos(codigo);
 	}
 }
 
@@ -345,9 +351,9 @@ function tabBicicletaMarcado(flag){
 		});
 
 		Quagga.onDetected(function(result){
-			var code = result.codeResult.code;
+			/*var code = result.codeResult.code;
 			var codigo = $("#codigo").val();
-			datosBici(code, codigo, "1");
+			datosBici(code, codigo, "1");*/
 
 		});
 	}else{
@@ -388,6 +394,64 @@ function registrarControlBici(e){
 			bootbox.alert("Se registró correctamente.", function(){$(location).attr('href',"../vistas/simular.php");});
 		}
 	});
+}
+
+function validarConductor(codigo){
+
+	if(codigo.length == 8 || codigo.length == 9){
+
+		$('#spanCodigoBusqueda').hide();
+		$.post("../ajax/C_Usuario.php?op=validarUsuarioDentro", {tipo_vehiculo: 'Auto', codigo: codigo}, function(data, status){
+			if(data != null){
+				data = JSON.parse(data);
+				if((data.estado) == '2'){
+					$('#spanCodigoBusqueda').text("El Conductor está dentro del estacionamiento");
+					$('#spanCodigoBusqueda').show();
+				}else{
+					$('#spanCodigoBusqueda').hide();
+					buscarConductor(codigo);
+
+					if((data.cantidadVehiculo) == '1' || (data.cantidadVehiculo) == '2' || (data.cantidadVehiculo) == '0'){
+						$('#btnAgregarAuto').prop('disabled', false);
+					}else{
+						$('#btnAgregarAuto').text('Ya tiene registrado 3 Autos');
+						$('#btnAgregarAuto').prop('disabled', true);
+					}
+				}
+			}
+
+		});
+
+		$.post("../ajax/C_Usuario.php?op=validarUsuarioDentro", {tipo_vehiculo: 'Moto', codigo: codigo}, function(data, status){
+			if(data != null){
+				data = JSON.parse(data);
+				if((data.cantidadVehiculo) == '1' || (data.cantidadVehiculo) == '2' || (data.cantidadVehiculo) == '0'){
+						$('#btnAgregarMoto').prop('disabled', false);
+					}else{
+						$('#btnAgregarMoto').text('Ya tiene registrado 3 Motos');
+						$('#btnAgregarMoto').prop('disabled', true);
+					}
+			}
+
+		});
+
+		$.post("../ajax/C_Usuario.php?op=validarUsuarioDentro", {tipo_vehiculo: 'Bicicleta', codigo: codigo}, function(data, status){
+			if(data != null){
+				data = JSON.parse(data);
+				if((data.cantidadVehiculo) == '1' || (data.cantidadVehiculo) == '2' || (data.cantidadVehiculo) == '0'){
+						$('#btnAgregarBicicleta').prop('disabled', false);
+					}else{
+						$('#btnAgregarBicicleta').text('Ya tiene registrado 3 Bicicletas');
+						$('#btnAgregarBicicleta').prop('disabled', true);
+					}
+			}
+
+		});
+	}else{
+		$('#spanCodigoBusqueda').text("Ingrese un codigo de Conductor correcto");
+		$('#spanCodigoBusqueda').show();
+	}
+	
 }
 
 init();

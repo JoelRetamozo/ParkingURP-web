@@ -20,7 +20,8 @@ switch ($_GET["op"]) {
 		//echo ($rspta["count"]);
 		$rspta2=$m_area->totalPorArea($id_area);
 		//echo ($rspta2["count"]);
-		echo json_encode($rspta2["count"]-$rspta["count"]);
+		//echo "el valor de restar "+$rspta["count"]+" menos "+$rspta2["count"]+" es:"+($rspta2["count"]-$rspta["count"]);
+		echo $rspta2["count"]-$rspta["count"];
 		break;
 	case 'actualizarEspacioArea':
 		$rspta= $m_area->actualizarEspacioArea($id_area,$espacio);

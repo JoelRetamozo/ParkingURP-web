@@ -51,5 +51,11 @@ Class M_Usuario{
 
 		return ejecutarConsulta($sql);
 	}
+
+	public function validarUsuarioDentro($codigo, $tipo_vehiculo){
+		$sql = "SELECT u.estado, COUNT(pXv.placa) AS cantidadVehiculo FROM T_Usuario u INNER JOIN T_Persona p ON p.codigo = u.codigo AND u.codigo = '$codigo' INNER JOIN T_Persona_has_T_Vehiculo pXv ON pXv.codigo = p.codigo INNER JOIN T_Vehiculo v ON pXv.placa = v.placa AND v.tipo_vehiculo = '$tipo_vehiculo'";
+
+		return ejecutarConsultaSimpleFila($sql);
+	}
 }
 ?>

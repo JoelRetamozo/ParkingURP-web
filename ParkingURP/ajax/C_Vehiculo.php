@@ -1,7 +1,7 @@
 <?php
 require_once "../modelos/M_Vehiculo.php";
 $m_vehiculo = new M_Vehiculo();
-$placa = isset($_REQUEST["placa"])? limpiarCadena($_REQUEST["placa"]):"";
+$placa = isset($_POST["placa"])? limpiarCadena($_POST["placa"]):"";
 $marca = isset($_POST["marca"])? limpiarCadena($_POST["marca"]):"";
 $color = isset($_POST["color"])? limpiarCadena($_POST["color"]):"";
 $tipo_vehiculo = isset($_REQUEST["tipo_vehiculo"])? limpiarCadena($_REQUEST["tipo_vehiculo"]):"";
@@ -29,7 +29,7 @@ switch ($_GET["op"]) {
 
 		$rspta2 = $m_persona_x_vehiculo->insertar($codigo, $placa);
 
-		echo $rspta2 ? $tipo_vehiculo . " ha sido registrado" : $tipo_vehiculo . " ya esta registrado";
+		echo $rspta2 ? $tipo_vehiculo . " ha sido registrado exitosamente" : $tipo_vehiculo . " ya esta registrado";
 		break;
 
 	case 'existePlaca':

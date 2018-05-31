@@ -5,25 +5,23 @@ session_start();
 
 require_once "../modelos/M_Usuario.php";
 $m_usuario = new M_Usuario();
-$id_persona = isset($_POST["id_persona"])? limpiarCadena($_POST["id_persona"]):"";
 $codigo = isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
 $password = isset($_POST["password"])? limpiarCadena($_POST["password"]):"";
 $correo = isset($_POST["correo"])? limpiarCadena($_POST["correo"]):"";
 
 switch ($_GET["op"]) {
 	case 'guardar':
-	$id_persona_new = $_GET["id_persona_new"];
-		$rspta = $m_usuario->insertar($codigo, $correo, $id_persona_new);
-		echo $rspta ? "Usuario registrado de Persona" : "Usuario no se pudo registrar a Persona";
+		$rspta = $m_usuario->insertar($codigo, $password, $perfil, $correo);
+		echo $rspta ? "Usuario registrado exitosamente" : "Usuario no se pudo registrar";
 		break;
 
 	case 'activar':
-		$rspta = $m_usuario->activar($id_persona);
+		$rspta = $m_usuario->activar($codigo);
 			echo $rspta ? "Conductor activado" : "Conductor no se pudo activar";
 		break;
 
 	case 'desactivar':
-		$rspta = $m_usuario->desactivar($id_persona);
+		$rspta = $m_usuario->desactivar($codigo);
 			echo $rspta ? "Conductor desactivado" : "Conductor no se pudo desactivar";
 		break;
 
@@ -57,6 +55,14 @@ switch ($_GET["op"]) {
 	header("Location: ../../index.php");
 
 	break;
+
+	case 'validarUsuarioDentro':
+		$tipo_vehiculo = isset($_POST["tipo_vehiculo"])? limpiarCadena($_POST["tipo_vehiculo"]):"";
+		$rspta = $m_usuario->validarUsuarioDentro($codigo, $tipo_vehiculo);
+
+		echo json_encode($rspta);
+
+		break;
 	
 }
 ?>

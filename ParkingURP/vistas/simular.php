@@ -1,25 +1,6 @@
 <?php  
-require 'header.php';
+require_once 'header.php';
 ?>
-
-<div class="content-wrapper">
-
-<section class="content-header">
-      <h1>
-        Simular Entrada y Salida
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="home.php"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li><a href="controlarIngreso.php"><i class="fa fa-dashboard"></i> Controlar Ingreso</a></li>
-        <li class="active">Simular Entrada y Salida</li>
-      </ol>
-    </section>
-
-    <section class="content container-fluid">
-
-    <div class="row">
-
-    <div class="col-md-12">
 
  <div class="conteiner">
    <button id="entrarmoto" onclick="entramoto()" name="entrar" class="boton"><img src="https://cdn0.iconfinder.com/data/icons/different-types-of-two-wheels-transport-in-glyph-s/128/mini-enduro-512.png" width="30" height="30"/></button>
@@ -27,7 +8,7 @@ require 'header.php';
    <button id="entrarcarro" onclick="ingresar()" name="entrar" class="boton"><img src="https://image.flaticon.com/icons/png/512/27/27442.png" width="30" height="30"/></button>
    <button id="salir" onclick="salir()" name="salir" value ="SALIR" class="boton">Salir</button>
     
- <font color="white"> 
+ <font color="black"> 
 <h2>Ingresó en:</h2>
 <p id="lugarocupado">**</p>
 
@@ -5561,13 +5542,6 @@ require 'header.php';
   </g>
 </svg>
 
-</div>
-</div>
-
-</section>
-
-</div>
-
 <?php  
 require_once 'footer.php';
 ?>
@@ -5754,39 +5728,39 @@ switch(""+id_area) {
         case "N":
        id_area_final=14;
         break;  
-
-
-}alert("el id a modificar:"+id_area_final);
-        restar(id_area_final);
+}
+ restar(id_area_final);
 }
 
 function restar(id_area1){
  $.post("../ajax/C_Area.php?op=restar", {id_area:id_area1}, function(data, status){
     data = JSON.parse(data);
+    alert("la resta es :"+data);
     actualizarEspacioArea(id_area1,data);
 });   
 }
  
 
 function actualizarEspacioArea(id_area1,data){
-    $.ajax({
+var id_area2=id_area1;
+var espacio=data;
+   $.ajax({
     url: "../ajax/C_Area.php?op=actualizarEspacioArea",
     type: "POST",
-    data: {id_area:id_area1,espacio:data},
+    data: {"id_area":id_area2,"espacio":espacio},
 
     success: function(datos){
-      bootbox.alert(datos);
     vehiculosOcupados();
   }
 });
 }
 
 function ingresartodo(elemento){
-   alert(elemento);
+   var msg=elemento;
     $.ajax({
     url: "../ajax/C_Seccion.php?op=actualizarEstadoEntrada",
     type: "POST",
-    data: {"junto": elemento},
+    data: {"junto": msg},
 
     success: function(datos){
       bootbox.alert(datos);
@@ -5804,11 +5778,10 @@ $.post("../ajax/C_Seccion.php?op=pedirEstacionamientosLlenos", {}, function(data
   console.log("hola"+data.length);
  for (var i = 0; i < data.length; i++) {
    document.getElementById(data[i].nombre).style.fill="#ff0000";
-   vehiculosOcupados();
-   }
+   
+   }vehiculosOcupados();
 }
 catch(err){
-alert("el error es:"+err.message);
 vehiculosOcupados();
 }}
 );
@@ -5838,6 +5811,7 @@ aleatorio=0;
   document.getElementById(eliminar).style.fill="#FFB300";
   document.getElementById("lugarocupado").innerHTML="--";
   sacarvehiculo(eliminar);
+  actualizarArea1(eliminar);
   }}
   catch(err){
 //alert("el error es:"+err.message);

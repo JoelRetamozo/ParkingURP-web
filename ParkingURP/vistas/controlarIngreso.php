@@ -52,9 +52,10 @@ if($_SESSION['perfil'] == "Vigilante"){
                     <input type="hidden" id="marcaNuevoRegistro" value="<?php if(isset($_POST["marca"])){echo $_POST['marca'];}else{echo "";}?>">
                     <input type="hidden" id="colorNuevoRegistro" value="<?php if(isset($_POST["color"])){echo $_POST['color'];}else{echo "";}?>">
                     <input type="number" class="form-control" name="codigo" id="codigo" value="<?php if(isset($_POST["codigo"])){echo $_POST['codigo'];}else{echo "";}?>" placeholder="Codigo" required="true">
+                    <span id="spanCodigoBusqueda" class="help-block"><i id="iconErrorPlaca" class="fa fa-times-circle-o"></i></span>
 
                     <br>
-                    <button class="btn btn-primary" id="btnBuscar" onclick="buscarConductor($('#codigo').val());"><i class="fa  fa-search"></i> Buscar</button>
+                    <button class="btn btn-primary" id="btnBuscar" onclick="validarConductor($('#codigo').val());"><i class="fa  fa-search"></i> Buscar</button>
                     
                 </div>
               </div>
@@ -107,7 +108,7 @@ if($_SESSION['perfil'] == "Vigilante"){
                                 <div class="box">
 
                                   <div class="box-header">
-                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarAuto"><input type="hidden" name="tipoVehiculoAEnviar" value="Auto">Autos <button class="btn btn-success" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
+                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarAuto"><input type="hidden" name="tipoVehiculoAEnviar" value="Auto">Autos <button class="btn btn-success" id="btnAgregarAuto" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
 
                                   </div>
                                   <!-- /.box-header -->
@@ -135,7 +136,7 @@ if($_SESSION['perfil'] == "Vigilante"){
                               <div class="col-xs-12">
                                 <div class="box">
                                   <div class="box-header">
-                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarMoto"><input type="hidden" name="tipoVehiculoAEnviar" value="Moto">Motos <button class="btn btn-success" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
+                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarMoto"><input type="hidden" name="tipoVehiculoAEnviar" value="Moto">Motos <button class="btn btn-success" id="btnAgregarMoto" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
 
                                   </div>
                                   <!-- /.box-header -->
@@ -162,7 +163,7 @@ if($_SESSION['perfil'] == "Vigilante"){
                               <div class="col-xs-12">
                                 <div class="box">
                                   <div class="box-header">
-                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarBici"><input type="hidden" name="tipoVehiculoAEnviar" value="Bicicleta">Bicicletas <button class="btn btn-success" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
+                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarBici"><input type="hidden" name="tipoVehiculoAEnviar" value="Bicicleta">Bicicletas <button class="btn btn-success" id="btnAgregarBicicleta" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
                                   </div>
                                   <!-- /.box-header -->
                                   <input type="hidden" id="estaPrendidoScanner">
