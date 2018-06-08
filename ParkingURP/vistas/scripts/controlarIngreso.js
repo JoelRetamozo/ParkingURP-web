@@ -3,15 +3,14 @@ var tablaMotos;
 var tablaBicicletas;
 
 function init(){
+	$("#frmIngreso").on("submit", function(e){
+			registrarControl(e);
+		});
 	$('#spanCodigoBusqueda').hide();
 	var codigo = $("#codigo").val();
 
 	if(codigo == ''){
 		$("#datosdelConductor").hide();
-
-		$("#frmIngreso").on("submit", function(e){
-			registrarControl(e);
-		});
 
 		var DNIInvitados = $("#codigoInvitado").val();
 		if(DNIInvitados == ''){
