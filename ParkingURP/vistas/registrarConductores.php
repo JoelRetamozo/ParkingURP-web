@@ -52,11 +52,11 @@ if($_SESSION['perfil'] == "Supervisor"){
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body" style="">
-                      <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		                  <label for="archivo">Lista de Conductores</label>
-		                  <input type="file" id="archivo" class="form-control" name="archivo">
+                      <div id="divArchivo" class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		                  <label for="archivo">Ingrese el registro Excel de los Conductores permitidos: </label>
+		                  <input type="file" id="archivo" class="form-control" name="archivo" onchange="validarExcel(this.value)" required="true">
 
-		                  <p class="help-block">Ingrese el registro Excel de los Conductores permitidos.</p>
+                      <span id="spanMsgError" class="help-block"><i class="fa fa-times-circle-o"></i> Debe ingresar un archivo Excel (.xls o .xlsx)</span>
 		                </div>
                     </div>
                     <!-- /.box-body -->
@@ -66,8 +66,7 @@ if($_SESSION['perfil'] == "Supervisor"){
                   
                   <div class="form-group col-lg-12 col-md-12 col-sm-12
                   col-xs-12">
-                    <button class="btn btn-primary" type="submit" id="btnRegistrar"><i class="fa fa-save"></i> Registrar</button>
-                    <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                    <button class="btn btn-primary pull-right" type="submit" id="btnRegistrar"><i class="fa fa-save"></i> Registrar</button>
                   </div>
                 </form>
               </div>

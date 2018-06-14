@@ -29,8 +29,13 @@ Class M_Usuario{
 		return ejecutarConsulta($sql);
 	}
 
-	public function desactivar($codigo){
-		$sql = "UPDATE T_Usuario SET estado = '0' WHERE codigo = '$codigo'";
+	public function cambiarEstado($codigo, $estado){
+		$sql = "UPDATE T_Usuario SET estado = '$estado' WHERE codigo = '$codigo'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function desactivarConductores(){
+		$sql = "UPDATE T_Usuario SET estado = '0' WHERE perfil = 'Conductor'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -47,7 +52,7 @@ Class M_Usuario{
 	}
 
 	public function verificar($codigo, $password){
-		$sql = "SELECT p.nombre, p.ape_paterno, p.ape_materno, u.codigo, u.perfil FROM T_Usuario u INNER JOIN T_Persona p ON u.codigo = p.codigo AND u.codigo = '$codigo' AND u.password ='$password' AND u.estado = '1'";
+		$sql = "SELECT p.nombre, p.ape_paterno, p.ape_materno, u.codigo, u.perfil FROM T_Usuario u INNER JOIN T_Persona p ON u.codigo = p.codigo AND u.codigo = '$codigo' AND u.password ='$password' AND u.estado = '1' AND p.tipo_persona = 'Trabajador'";
 
 		return ejecutarConsulta($sql);
 	}

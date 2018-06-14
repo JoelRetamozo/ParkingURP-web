@@ -68,7 +68,11 @@ require 'header.php';
                         <div id="divAutoMoto" class="form-group">
                           <div id="lectorCodigo" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Muestre la Tarjeta de Identificacion del Vehiculo:</label>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="barcode-scanner"></div>
+                            <div class="col-md-12">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="barcode-scanner"></div>
+
+                              <span id="spanScannerMsgError" class="text-red"></span>
+                            </div>
 
                           </div>
 

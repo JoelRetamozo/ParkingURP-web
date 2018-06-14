@@ -45,14 +45,15 @@ if($_SESSION['perfil'] == "Vigilante"){
 
               <div class="panel-body">
 
-                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div id="divBusquedaConductor" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <label>Ingrese el codigo del Conductor:</label>
                     <input type="hidden" id="tipoVehiculoNuevoRegistro" value="<?php if(isset($_POST["tipo_vehiculo"])){echo $_POST['tipo_vehiculo'];}else{echo "";}?>">
                     <input type="hidden" id="placaNuevoRegistro" value="<?php if(isset($_POST["placa"])){echo $_POST['placa'];}else{echo "";}?>">
                     <input type="hidden" id="marcaNuevoRegistro" value="<?php if(isset($_POST["marca"])){echo $_POST['marca'];}else{echo "";}?>">
                     <input type="hidden" id="colorNuevoRegistro" value="<?php if(isset($_POST["color"])){echo $_POST['color'];}else{echo "";}?>">
                     <input type="number" class="form-control" name="codigo" id="codigo" value="<?php if(isset($_POST["codigo"])){echo $_POST['codigo'];}else{echo "";}?>" placeholder="Codigo" required="true">
-                    <span id="spanCodigoBusqueda" class="help-block"><i id="iconErrorPlaca" class="fa fa-times-circle-o"></i></span>
+
+                    <span id="spanCodigoBusqueda" class="help-block"></span>
 
                     <br>
                     <button class="btn btn-primary" id="btnBuscar" onclick="validarConductor($('#codigo').val());"><i class="fa  fa-search"></i> Buscar</button>
@@ -91,96 +92,90 @@ if($_SESSION['perfil'] == "Vigilante"){
                         <input type="text" class="form-control" name="carrera" id="carrera" disabled="false" readonly="true">
                       </div>
 
-                    <div class="col-md-12">
-                      <!-- Custom Tabs (Pulled to the right) -->
-                      <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs pull-right">
-                          <li class="active"><a href="#tab_1-1" data-toggle="tab" onclick="tabBicicletaMarcado(false)"><i class="fa fa-car"></i></a></li>
-                          <li><a href="#tab_2-2" data-toggle="tab" onclick="tabBicicletaMarcado(false)"><i class="fa fa-motorcycle"></i></a></li>
-                          <li><a href="#tab_3-2" data-toggle="tab" onclick="tabBicicletaMarcado(true)"><i class="fa fa-bicycle"></i></a></li>
-                          <li class="pull-left header"><i class="fa fa-bus"></i> Vehiculo</li>
-                        </ul>
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="tab_1-1">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                            <div class="row">
-                              <div class="col-xs-12">
-                                <div class="box">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="box-footer box-comments">
+                          <div class="box-comment">
+                            <!-- User image -->
+                            <span class="img-circle img-sm"><i class="fa fa-car"></i></span>
 
-                                  <div class="box-header">
-                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarAuto"><input type="hidden" name="tipoVehiculoAEnviar" value="Auto">Autos <button class="btn btn-success" id="btnAgregarAuto" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
-
-                                  </div>
-                                  <!-- /.box-header -->
-                                  <div class="box-body table-responsive no-padding">
-                                    <table id="tblAutos" class="table table-striped table-bordered table-condensed table-hover">
+                            <div class="comment-text">
+                                  <span class="username">
+                                    <form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarAuto"><input type="hidden" name="tipoVehiculoAEnviar" value="Auto">Autos <button class="btn btn-success" id="btnAgregarAuto" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form>
+                                  </span><!-- /.username -->
+                                  <table id="tblAutos" class="mdl-data-table" style="width:100%">
                                       <thead>
                                         <th>Placa</th>
+                                        <th>Estado</th>
                                         <th>Eliminar</th>
-                                        <th>Accion</th>
                                       </thead>
                                       <tbody>
                                       </tbody>
                                     </table>
-                                  </div>
-                                  <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                              </div>
                             </div>
-
+                            <!-- /.comment-text -->
                           </div>
-                          <!-- /.tab-pane -->
-                          <div class="tab-pane" id="tab_2-2">
-                            <div class="row">
-                              <div class="col-xs-12">
-                                <div class="box">
-                                  <div class="box-header">
-                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarMoto"><input type="hidden" name="tipoVehiculoAEnviar" value="Moto">Motos <button class="btn btn-success" id="btnAgregarMoto" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
+                          <!-- /.box-comment -->
+                          <div class="box-comment">
+                            <!-- User image -->
+                            <span class="img-circle img-sm"><i class="fa fa-motorcycle"></i></span>
 
-                                  </div>
-                                  <!-- /.box-header -->
-                                  <div class="box-body table-responsive no-padding">
-                                    <table id="tblMotos" class="table table-striped table-bordered table-condensed table-hover">
+                            <div class="comment-text">
+                                  <span class="username">
+                                    <form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarMoto"><input type="hidden" name="tipoVehiculoAEnviar" value="Moto">Motos <button class="btn btn-success" id="btnAgregarMoto" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form>
+                                  </span><!-- /.username -->
+                                  <table id="tblMotos" class="mdl-data-table" style="width:100%">
                                       <thead>
                                         <th>Placa</th>
+                                        <th>Estado</th>
                                         <th>Eliminar</th>
-                                        <th>Accion</th>
                                       </thead>
                                       <tbody>
                                       </tbody>
                                     </table>
-                                  </div>
-                                  <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                              </div>
                             </div>
+                            <!-- /.comment-text -->
                           </div>
-                          <!-- /.tab-pane -->
-                          <div class="tab-pane" id="tab_3-2">
-                            <div class="row">
-                              <div class="col-xs-12">
-                                <div class="box">
-                                  <div class="box-header">
-                                    <h3 class="box-title"><form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarBici"><input type="hidden" name="tipoVehiculoAEnviar" value="Bicicleta">Bicicletas <button class="btn btn-success" id="btnAgregarBicicleta" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form></h3>
-                                  </div>
-                                  <!-- /.box-header -->
-                                  <input type="hidden" id="estaPrendidoScanner">
-                                  <label>Muestre el codigo de Identificacion otorgado a la Bicicleta:</label>
-                                  <div id="divScannerControlBici" class="box-body"></div>
-                                  
-                                  <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                              </div>
+                          <!-- /.box-comment -->
+                          <div class="box-comment">
+                            <!-- User image -->
+                            <span class="img-circle img-sm"><i class="fa fa-bicycle"></i></span>
+
+                            <div class="comment-text">
+                                  <span class="username">
+                                    <form action="administrarVehiculo.php" method="POST"><input type="hidden" name="codigoAEnviar" id="codigoAEnviarBici"><input type="hidden" name="tipoVehiculoAEnviar" value="Bicicleta">Bicicletas <button class="btn btn-success" id="btnAgregarBicicleta" type="submit"><i class="fa fa-plus-circle"></i> Agregar</button></form>
+                                  </span><!-- /.username -->
+                                  <table id="tblBicicletas" class="mdl-data-table" style="width:100%">
+                                      <thead>
+                                        <th>Marca</th>
+                                        <th>Color</th>
+                                        <th>Estado</th>
+                                        <th>Eliminar</th>
+                                      </thead>
+                                      <tbody>
+                                      </tbody>
+                                    </table>
                             </div>
+                            <!-- /.comment-text -->
                           </div>
-                          <!-- /.tab-pane -->
                         </div>
-                        <!-- /.tab-content -->
                       </div>
-                      <!-- nav-tabs-custom -->
+
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <label>Muestre la tarjeta de identificacion: </label>
+                          <div class="btn-group">
+                            <button id="btnOnScanner" class="btn btn-success" onclick="estadoScanner(true)">ON</button>
+                            <button id="btnOffScanner" class="btn btn-danger" onclick="estadoScanner(false)" disabled="true">OFF</button>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="barcode-scanner"></div>
+                              <span id="spanScannerMsgError" class="text-red"></span>
+                            </div>
+                        </div>
+                      </div>
+
                     </div>
 
                 </div>
@@ -291,7 +286,7 @@ if($_SESSION['perfil'] == "Vigilante"){
                 </div>
                 <div class="checkbox col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <label>
-                    <input id="checkInvitado" onchange="mostrarAddInvitados(this)" type="checkbox"> Añadir Invitados
+                    <input id="checkInvitado" onchange="mostrarAddInvitados(this, $('tipo_vehiculo').text())" type="checkbox"> Añadir Invitados
                   </label>
                 </div>
 

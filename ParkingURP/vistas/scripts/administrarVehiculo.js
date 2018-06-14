@@ -33,7 +33,7 @@ function clearForm(){
 }
 
 
-function consultarCodigoBarra(){
+function consultarCodigoBarra(elemento){
 	$('#lectorCodigo').show();
 
 	//window.URL = window.URL || window.webkitURL;
@@ -62,7 +62,8 @@ function consultarCodigoBarra(){
 	Quagga.onDetected(function(result){
 		var code = result.codeResult.code;
 
-		buscarVehiculoInvitado(code);
+		$('#spanScannerMsgError').empty();
+		buscarVehiculoInvitado(code, elemento);
 
 	});
 }
@@ -89,36 +90,44 @@ function mostrarTipoVehiculo(elemento){
 		$("#colorBici").prop("required", false);
 		$('#btnRegistrar').hide();
 
-		consultarCodigoBarra();
+		consultarCodigoBarra(elemento);
 	}
 	$('#tipoVehiculoEnviado').val(elemento);
 }
 
-function buscarVehiculoInvitado(placa){
-
-	console.log(placa);
+function buscarVehiculoInvitado(placa, tipo_vehiculo){
 
 	$.post("../ajax/C_WS_Vehiculo.php?op=mostrarVehiculo", {placa : placa}, function(data, status){
 		data = JSON.parse(data);
 
 		if(data != null){
-			Quagga.stop();
-			$('#datosVehiculoInvitado').show();
+			if(data.tipo_vehiculo == tipo_vehiculo){
+				$('#datosVehiculoInvitado').show();
 
-			$('#placa').val(placa);
-			$("#marca").val(data.marca);
-			$("#modelo").val(data.modelo);
-			$("#color").val(data.color);
+				$('#placa').val(placa);
+				$("#marca").val(data.marca);
+				$("#modelo").val(data.modelo);
+				$("#color").val(data.color);
 
-			$('#lectorCodigo').hide();
-			$('#btnRegistrar').show();
+				$('#lectorCodigo').hide();
+				Quagga.stop();
+				$('#btnRegistrar').show();
+			}else{
+				$('#spanScannerMsgError').empty();
+				$('#spanScannerMsgError').append('<i class="fa fa-times-circle-o"></i> La placa ' + placa + ' no es ' + tipo_vehiculo);
+				$('#spanScannerMsgError').show();
+			}
+		}else{
+			$('#spanScannerMsgError').empty();
+			$('#spanScannerMsgError').append('<i class="fa fa-times-circle-o"></i> La placa ' + placa + ' no existe');
+			$('#spanScannerMsgError').show();
 		}
 
 	});
 }
 
 function generarPlacaBici(){
-	var letras = "ABCDEFGHIJKLMNPQRTUVWXYZ";
+	var letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   	var placaBici = "BIC";
   	for (i=0; i<3; i++) placaBici += letras.charAt(Math.floor(Math.random()*letras.length));
   	var numeros = "0123456789";

@@ -11,10 +11,10 @@ switch ($_GET["op"]) {
 		//$id_control = $m_control->insertar($flag_quedarse, $motivo, $id_persona);
 		$id_control = $m_control->insertar('0', null, $codigo);
 
-		require_once "../modelos/M_Persona.php";
-		$m_persona = new M_Persona();
+		require_once "../modelos/M_Usuario.php";
+		$m_usuario = new M_Usuario();
 
-		$rspta3 = $m_persona->editarEstado($codigo, "2");
+		$rspta3 = $m_usuario->cambiarEstado($codigo, "2");
 
 		require_once "../modelos/M_Vehiculo.php";
 		$m_vehiculo = new M_Vehiculo();

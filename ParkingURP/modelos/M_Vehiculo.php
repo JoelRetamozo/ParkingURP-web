@@ -12,7 +12,12 @@ Class M_Vehiculo{
 	}
 
 	public function eliminar($placa){
-		$sql = "DELETE FROM T_Vehiculo WHERE placa = '$placa'";
+		$sql = "UPDATE T_Vehiculo SET estado = '0' WHERE placa = '$placa'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function reactivar($placa){
+		$sql = "UPDATE T_Vehiculo SET estado = '1' WHERE placa = '$placa'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -22,7 +27,7 @@ Class M_Vehiculo{
 	}
 
 	public function buscarVehiculo($codigo, $tipo_vehiculo){
-		$sql = "SELECT v.placa FROM T_Vehiculo v INNER JOIN T_Persona_has_T_Vehiculo pXv ON pXv.placa = v.placa AND v.tipo_vehiculo = '$tipo_vehiculo' INNER JOIN T_Persona p ON pXv.codigo = p.codigo AND p.codigo = '$codigo'  AND v.estado != '2'";
+		$sql = "SELECT v.placa, v.descripcion, v.estado FROM T_Vehiculo v INNER JOIN T_Persona_has_T_Vehiculo pXv ON pXv.placa = v.placa AND v.tipo_vehiculo = '$tipo_vehiculo' INNER JOIN T_Persona p ON pXv.codigo = p.codigo AND p.codigo = '$codigo' AND v.estado != '0'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -34,6 +39,11 @@ Class M_Vehiculo{
 	public function editarEstado($placa, $estado){
 		$sql = "UPDATE T_Vehiculo SET estado = '$estado' WHERE placa = '$placa'";
 		return ejecutarConsulta($sql);
+	}
+
+	public function existeVehiculoByCodigo($codigo, $placa){
+		$sql = "SELECT v.tipo_vehiculo, v.estado FROM T_Vehiculo v INNER JOIN t_persona_has_t_vehiculo pXv ON pXv.placa = v.placa AND pXv.codigo = '$codigo' AND v.placa = '$placa'";
+		return ejecutarConsultaSimpleFila($sql);
 	}
 }
 ?>

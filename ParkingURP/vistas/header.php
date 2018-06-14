@@ -163,7 +163,9 @@ desired effect
 
         <?php
             if($_SESSION['perfil'] == "Supervisor"){
-              echo '<li class="active"><a href="registrarConductores.php"><i class="fa fa-user"></i> <span>Registrar Conductores</span></a></li>';
+              echo '<li><a href="registrarConductores.php"><i class="fa fa-user"></i> <span>Registrar Conductores</span></a></li>';
+
+              echo '<li><a href="consultarSugerencias.php"><i class="fa fa-eye"></i> <span>Consultar Sugerencias</span></a></li>';
             } 
             ?>
         <!---<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>-->

@@ -17,19 +17,14 @@ Class M_Persona{
 	}
 
 	//Implementamos un metodo para editar registros
-	public function editar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $carrera, $tipo_persona, $codigoAntiguo){
-		$sql = "UPDATE T_Persona SET codigo = '$codigo', nombre = '$nombre', ape_paterno = '$ape_paterno', ape_materno = '$ape_materno', celular = '$celular', correo = '$correo', tipo_persona = '$tipo_persona', carrera = '$carrera' WHERE codigo = '$codigoAntiguo'";
+	public function editar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $carrera, $tipo_persona){
+		$sql = "UPDATE T_Persona SET nombre = '$nombre', ape_paterno = '$ape_paterno', ape_materno = '$ape_materno', celular = '$celular', correo = '$correo', tipo_persona = '$tipo_persona', carrera = '$carrera' WHERE codigo = '$codigo'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un metodo para listar los registros
 	public function listar(){
 		$sql = "SELECT p.id_persona, p.codigo, p.nombre, p.ape_paterno, p.ape_materno, tp.nombre as tipo_persona, v.placa, u.estado FROM T_Persona p INNER JOIN T_Tipo_Persona tp ON p.id_tipo_persona = tp.id_tipo_persona INNER JOIN T_Persona_has_T_Vehiculo pxv ON p.id_persona = pxv.id_persona INNER JOIN T_Vehiculo v ON v.id_vehiculo = pxv.id_vehiculo INNER JOIN T_Usuario u ON u.id_persona = p.id_persona";
-		return ejecutarConsulta($sql);
-	}
-
-	public function editarEstado($codigo, $estado){
-		$sql = "UPDATE T_Persona SET estado = '$estado' WHERE codigo = '$codigo'";
 		return ejecutarConsulta($sql);
 	}
 

@@ -46,12 +46,12 @@ switch ($_GET["op"]) {
 		$m_usuario = new M_Usuario();
 
 		if($_FILES['archivo']['error'] > 0){
-			$rspta = "Error: " . $_FILES['archivo']['error'];
+			//$rspta = "Error: " . $_FILES['archivo']['error'];
 		}else{
 
 			move_uploaded_file($_FILES['archivo']['tmp_name'], '../files/Conductores/'.$_FILES['archivo']['name']);
-			$rspta = "Se subio";
 		}
+		$allinactive = $m_usuario->desactivarConductores();
 
 		require_once '../public/Classes/PHPExcel/IOFactory.php';
 
@@ -75,6 +75,10 @@ switch ($_GET["op"]) {
 				$rspta1 = $m_persona->insertar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $carrera, $tipo_persona);
 
 				$rspta = $m_usuario->insertar($codigo, '', 'Conductor', $correo);
+			}else{
+				$rspta1 = $m_persona->editar($codigo, $nombre, $ape_paterno, $ape_materno, $celular, $correo, $carrera, $tipo_persona);
+
+				$rspta = $m_usuario->activar($codigo);
 			}
 		}
 

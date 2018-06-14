@@ -19,6 +19,8 @@ switch ($_GET["op"]) {
 			}else{
 				$rspta = $m_vehiculo->insertar($placa, "", "1", $tipo_vehiculo);
 			}
+		}else{
+			$rspta = $m_vehiculo->reactivar($placa);
 		}
 
 		require_once "../modelos/M_Persona_X_Vehiculo.php";
@@ -47,8 +49,32 @@ switch ($_GET["op"]) {
 		while ($reg = $rspta->fetch_object()) {
 			$data[] = array(
 				"0" => $reg->placa,
-				"1" => '<button class="btn btn-danger" onclick="desactivar('."'".$reg->placa."', ".$codigo.')"><i class="fa fa-close"></i></button>',
-				"2" => '<button class="btn btn-success" data-toggle="modal" data-target="#modal-default" onclick="datosVehiculo('."'".$reg->placa."', ".$codigo.')"><i class="fa fa-pencil"></i> Ingreso</button>'
+				"1" => ($reg->estado == '1')?'<span class="label bg-green">Disponible</span>': '<span class="label bg-red">Ingresó</span>',
+				"2" => '<button class="btn btn-danger" onclick="desactivar('."'".$reg->placa."', ".$codigo.')"><i class="fa fa-close"></i></button>'
+				);
+		}
+		$results = array(
+			"sEcho" => 1, //Informacion para el datatables
+			"iTotalRecords" => count($data), //enviamos el total registros al datatable
+			"iTotalDisplayRecords" => count($data), //enviamos el total registros a visualizar
+			"aaData" => $data);
+		echo json_encode($results);
+		break;
+
+	case 'listarBicicleta':
+		$codigo = isset($_GET["codigo"])? limpiarCadena($_GET["codigo"]):"";
+
+		$rspta = $m_vehiculo->buscarVehiculo($codigo, 'Bicicleta');
+		//Vamos a declarar un Array para almacenar todos los registros que voy  listar
+		$data = Array();
+
+		while ($reg = $rspta->fetch_object()) {
+			$descrip = explode(';', $reg->descripcion);
+			$data[] = array(
+				"0" => $descrip[0],
+				"1" => $descrip[1],
+				"2" => ($reg->estado == '1')?'<span class="label bg-green">Disponible</span>': '<span class="label bg-red">Ingresó</span>',
+				"3" => '<button class="btn btn-danger" onclick="desactivar('."'".$reg->placa."', ".$codigo.')"><i class="fa fa-close"></i></button>'
 				);
 		}
 		$results = array(
@@ -72,23 +98,23 @@ switch ($_GET["op"]) {
 
 		$codigo = isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
 
-		$rspta = $m_persona_x_vehiculo->eliminar($codigo, $placa);
-
 		$existeVarios = $m_persona_x_vehiculo->existeVarios($placa);
 
 		if($existeVarios["count"] == "0" || $existeVarios["count"] == "1"){
+			$rspta = $m_persona_x_vehiculo->eliminar($codigo, $placa);
 			$rspta2 = $m_vehiculo->eliminar($placa);
+		}else{
+			$rspta = $m_persona_x_vehiculo->eliminar($codigo, $placa);
 		}
 
 		echo $rspta ? "El vehiculo ha sido eliminado" : "El vehiculo no se pudo eliminar";
 		break;
 
-	case 'pruebaEliminar':
-	require_once "../modelos/M_Persona_X_Vehiculo.php";
+	case 'existeVehiculoByCodigo':
 
-		$m_persona_x_vehiculo = new M_Persona_X_Vehiculo();
-		$existe = $m_persona_x_vehiculo->existeVarios($placa);
-		echo $existe["count"];
+	$codigo = isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
+	$rspta = $m_vehiculo->existeVehiculoByCodigo($codigo, $placa);
+	echo json_encode($rspta);
 		break;
 }
 ?>
