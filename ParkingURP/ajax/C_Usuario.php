@@ -63,6 +63,23 @@ switch ($_GET["op"]) {
 		echo json_encode($rspta);
 
 		break;
+
+	case 'buscarCorreoByCodigo':
+		$rspta = $m_usuario->buscarCorreoByCodigo($codigo);
+
+		$correo = explode("@", $rspta["correo"]);
+		$final = "";
+
+		for ($i=0; $i < strlen($correo[0]) ; $i++) { 
+			if($i < 3){
+				$final .= $correo[0][$i];
+			}else{
+				$final .= '*';
+			}
+		}
+
+		echo $final."@".$correo[1];
+		break;
 	
 }
 ?>

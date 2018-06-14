@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ParkingURP | Log in</title>
+  <title>ParkingURP | Recordar Contraseña</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -33,30 +33,31 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Inicia Sesion</p>
+    <p class="login-box-msg">Recuerda tu Contraseña</p>
 
-    <form id="frmAcceso" method="POST">
+    <div>
+    	<div class="form-group">
+    		<label>Ingrese su DNI: </label>
+        	<input type="text" id="codigoBuscar" value="<?php if(isset($_POST["codigo"])){echo $_POST['codigo'];}else{echo "";}?>" class="form-control" placeholder="Ingrese Codigo">
+     	</div>
+     	<button onclick="buscar($('#codigoBuscar').val())" class="btn btn-info"><i class="fa fa-search"></i> Buscar</button>
+    </div>
+
+    <div id="frmRecordarContra">
+    	<h3 id="mensajeCorreo"></h3>
       <div class="form-group has-feedback">
-        <input type="text" id="codigo" class="form-control" placeholder="Ingrese Codigo">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" id="password" class="form-control" placeholder="Ingrese Password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      	<label>Ingrese el correo:</label>
+        <input type="email" id="correo" class="form-control">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+          <button class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Enviar</button>
         </div>
         <!-- /.col -->
       </div>
-    </form>
-
-    <form id="formOlvideContra" method="POST" action="recordarContrasena.php">
-      <input type="hidden" name="codigo" id="codigoAEnviar">
-      <a href="javascript: recordarContrasena()">Olvidé mi contraseña</a><br>
-    </form>
+    </div>
 
   </div>
   <!-- /.login-box-body -->
@@ -70,7 +71,7 @@
 
 <script src="../public/js/bootbox.min.js"></script>
 
-<script src="scripts/login.js"></script>
+<script src="scripts/recordarContrasena.js"></script>
 
 </body>
 </html>

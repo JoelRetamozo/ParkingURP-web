@@ -8,6 +8,14 @@ $("#frmAcceso").on('submit', function(e){
 			$(location).attr("href","index.php");
 		}else{
 			bootbox.alert("Usuario y/o Password incorrectos");
+			$("#password").val("");
 		}
 	});
 })
+
+function recordarContrasena()
+{
+	var codigo = $("#codigo").val();
+	$("#codigoAEnviar").val(codigo);
+    document.forms["formOlvideContra"].submit();
+}

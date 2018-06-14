@@ -62,5 +62,11 @@ Class M_Usuario{
 
 		return ejecutarConsultaSimpleFila($sql);
 	}
+
+	public function buscarCorreoByCodigo($codigo){
+		$sql = "SELECT p.correo FROM T_Usuario u INNER JOIN T_Persona p ON u.codigo = p.codigo AND u.codigo = '$codigo' AND u.estado= '1'";
+
+		return ejecutarConsultaSimpleFila($sql);
+	}
 }
 ?>
