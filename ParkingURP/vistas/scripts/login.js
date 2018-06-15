@@ -12,10 +12,3 @@ $("#frmAcceso").on('submit', function(e){
 		}
 	});
 })
-
-function recordarContrasena()
-{
-	var codigo = $("#codigo").val();
-	$("#codigoAEnviar").val(codigo);
-    document.forms["formOlvideContra"].submit();
-}

@@ -35,29 +35,12 @@
   <div class="login-box-body">
     <p class="login-box-msg">Recuerda tu Contraseña</p>
 
-    <div>
-    	<div class="form-group">
-    		<label>Ingrese su DNI: </label>
-        	<input type="text" id="codigoBuscar" value="<?php if(isset($_POST["codigo"])){echo $_POST['codigo'];}else{echo "";}?>" class="form-control" placeholder="Ingrese Codigo">
+    	<div class="form-group has-feedback">
+    		<label>Ingrese su correo Electronico: </label>
+        	<input type="email" class="form-group">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
      	</div>
-     	<button onclick="buscar($('#codigoBuscar').val())" class="btn btn-info"><i class="fa fa-search"></i> Buscar</button>
-    </div>
-
-    <div id="frmRecordarContra">
-    	<h3 id="mensajeCorreo"></h3>
-      <div class="form-group has-feedback">
-      	<label>Ingrese el correo:</label>
-        <input type="email" id="correo" class="form-control">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Enviar</button>
-        </div>
-        <!-- /.col -->
-      </div>
-    </div>
+     	<button class="btn btn-info"><span class="glyphicon glyphicon-send"></span> Enviar</button>
 
   </div>
   <!-- /.login-box-body -->

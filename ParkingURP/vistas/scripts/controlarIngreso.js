@@ -107,9 +107,8 @@ function mostrarFormBusqueda(flag){
 
 function buscarConductor(codigo){
 	$.post("../ajax/C_Persona.php?op=buscarByCodigo", {codigo : codigo}, function(data, status){
-		data = JSON.parse(data);
-
 		if(data != null){
+			data = JSON.parse(data);
 			mostrarFormBusqueda(true);
 			$("#nombre").val(data.nombre);
 			$("#ape_paterno").val(data.ape_paterno);
