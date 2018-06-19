@@ -32,17 +32,24 @@
     <b>ParkingURP</b>
   </div>
   <!-- /.login-logo -->
-  <div class="login-box-body">
+  <form id="frmRecuerda" method="POST" class="login-box-body">
     <p class="login-box-msg">Recuerda tu Contraseña</p>
 
     	<div class="form-group has-feedback">
-    		<label>Ingrese su correo Electronico: </label>
-        	<input type="email" class="form-group">
-          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <input type="email" id="correo" class="form-control" placeholder="Ingrese Codigo" required="true">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
      	</div>
-     	<button class="btn btn-info"><span class="glyphicon glyphicon-send"></span> Enviar</button>
+      <div class="form-group">
+        <span>Le enviaremos su contraseña a este correo.</span>
+      </div>
 
-  </div>
+      <div class="form-group">
+        <a href="login.html" class="btn btn-default">Cancelar</a>
+
+        <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-send"></span> Enviar</button>
+      </div>
+
+  </form>
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->

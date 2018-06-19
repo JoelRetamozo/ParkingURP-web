@@ -65,7 +65,7 @@ Class M_Usuario{
 
 	public function recordarContra($correo){
 		$sql = "SELECT u.password FROM T_Usuario u INNER JOIN T_Persona p ON p.codigo = u.codigo AND p.correo = '$correo' AND u.estado = '1'";
-		return ejecutarConsultaSimpleFila();
+		return ejecutarConsultaSimpleFila($sql);
 	}
 }
 ?>
