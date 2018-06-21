@@ -43,7 +43,7 @@ function registrarConductor(e){
 		},
 
 		success: function(datos){
-			bootbox.alert(datos, function(){$(location).attr('href',"registrarConductor.php");});
+			bootbox.alert(datos, function(){$(location).attr('href',"registrarConductores.php");});
 		}
 	});
 }

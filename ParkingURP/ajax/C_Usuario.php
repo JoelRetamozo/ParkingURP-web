@@ -66,17 +66,17 @@ switch ($_GET["op"]) {
 
 	case 'recordarContra':
 		$rspta = $m_usuario->recordarContra($correo);
-		if($rspta != null || $rspta != 'null'){
+		if($rspta){
 			$subject = "Recuperar Contraseña de la aplicación web ParkingURP";
 			$headers = 'From: parkingurp@gmail.com' . "\r\n" .
 	    		'Reply-To: parkingurp@gmail.com' . "\r\n" .
 	    		'X-Mailer: PHP/' . phpversion();
 	 
 			$message = "Su contraseña para la aplicación móvil es:" . "\r\n" . 
-				"Password: " . $rspta->password;
-			mail($correo, $subject, $message);
+				"Password: " . $rspta["password"];
+			$rspta123 = mail($correo, $subject, $message);
 
-			echo "Se envio su contraseña a su correo";
+			echo "Se envio su contraseña a su correo.";
 		}else{
 			echo json_encode($rspta);
 		}

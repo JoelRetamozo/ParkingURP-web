@@ -98,8 +98,9 @@ function mostrarTipoVehiculo(elemento){
 function buscarVehiculoInvitado(placa, tipo_vehiculo){
 
 	$.post("../ajax/C_WS_Vehiculo.php?op=mostrarVehiculo", {placa : placa}, function(data, status){
-		if(data != null){
+		if(data != 'null'){
 			data = JSON.parse(data);
+
 			if(data.tipo_vehiculo == tipo_vehiculo){
 				$('#datosVehiculoInvitado').show();
 

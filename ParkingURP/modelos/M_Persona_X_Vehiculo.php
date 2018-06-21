@@ -10,13 +10,19 @@ Class M_Persona_X_Vehiculo{
 	}
 
 	public function insertar($codigo, $placa){
-		$sql = "INSERT INTO T_Persona_has_T_Vehiculo VALUES ('$codigo', '$placa')";
+		$sql = "INSERT INTO T_Persona_has_T_Vehiculo VALUES ('$codigo', '$placa', '1')";
 
 		return ejecutarConsulta($sql);
 	}
 
 	public function eliminar($codigo, $placa){
-		$sql = "DELETE FROM T_Persona_has_T_Vehiculo WHERE placa = '$placa' AND codigo = '$codigo'";
+		$sql = "UPDATE T_Persona_has_T_Vehiculo SET estado = '0' WHERE placa = '$placa' AND codigo = '$codigo'";
+
+		return ejecutarConsulta($sql);
+	}
+
+	public function reactivar($codigo, $placa){
+		$sql = "UPDATE T_Persona_has_T_Vehiculo SET estado = '1' WHERE placa = '$placa' AND codigo = '$codigo'";
 
 		return ejecutarConsulta($sql);
 	}

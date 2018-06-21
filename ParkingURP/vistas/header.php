@@ -173,6 +173,8 @@ desired effect
         <?php
             if($_SESSION['perfil'] == "Vigilante"){
               echo '<li><a href="controlarIngreso.php"><i class="fa fa-cogs"></i> <span>Controlar Ingreso</span></a></li>';
+
+              echo '<li><a href="controlarSalida.php"><i class="fa fa-cogs"></i> <span>Controlar Salida</span></a></li>';
             } 
             ?>
         

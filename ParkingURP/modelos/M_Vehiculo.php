@@ -27,7 +27,7 @@ Class M_Vehiculo{
 	}
 
 	public function buscarVehiculo($codigo, $tipo_vehiculo){
-		$sql = "SELECT v.placa, v.descripcion, v.estado FROM T_Vehiculo v INNER JOIN T_Persona_has_T_Vehiculo pXv ON pXv.placa = v.placa AND v.tipo_vehiculo = '$tipo_vehiculo' INNER JOIN T_Persona p ON pXv.codigo = p.codigo AND p.codigo = '$codigo' AND v.estado != '0'";
+		$sql = "SELECT v.placa, v.descripcion, v.estado FROM T_Vehiculo v INNER JOIN T_Persona_has_T_Vehiculo pXv ON pXv.placa = v.placa AND v.tipo_vehiculo = '$tipo_vehiculo' INNER JOIN T_Persona p ON pXv.codigo = p.codigo AND p.codigo = '$codigo' AND pXv.estado != '0'";
 		return ejecutarConsulta($sql);
 	}
 

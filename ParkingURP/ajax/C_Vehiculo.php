@@ -31,7 +31,13 @@ switch ($_GET["op"]) {
 
 		$rspta2 = $m_persona_x_vehiculo->insertar($codigo, $placa);
 
-		echo $rspta2 ? $tipo_vehiculo . " ha sido registrado exitosamente" : $tipo_vehiculo . " ya esta registrado";
+		if($rspta2){
+			echo $tipo_vehiculo . " ha sido registrado exitosamente";
+		}else{
+			$rspta7 = $m_persona_x_vehiculo->reactivar($codigo, $placa);
+			echo $tipo_vehiculo . " ya está registrado";
+		}
+
 		break;
 
 	case 'existePlaca':
@@ -86,8 +92,9 @@ switch ($_GET["op"]) {
 		break;
 
 	case 'mostrarBici':
-		$codigo = isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
-			$rspta = $m_vehiculo->mostrarBici($placa, $codigo);
+		//$codigo = isset($_POST["codigo"])? limpiarCadena($_POST["codigo"]):"";
+			//$rspta = $m_vehiculo->mostrarBici($placa, $codigo);
+	$rspta = $m_vehiculo->mostrarBici('BICOGG722', '70654321');
 			echo json_encode($rspta);
 		break;
 
