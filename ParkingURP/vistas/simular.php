@@ -30,6 +30,8 @@ require_once 'header.php';
    <button id="entrarbicicleta"onclick="entrabici()" name ="entrar" class="boton"><img src="https://image.flaticon.com/icons/svg/35/35085.svg" width="30" height="30"/></button>
    <button id="entrarcarro" onclick="ingresar()" name="entrar" class="boton"><img src="https://image.flaticon.com/icons/png/512/27/27442.png" width="30" height="30"/></button>
    <button id="salir" onclick="salir()" name="salir" value ="SALIR" class="boton">Salir</button>
+
+   <input type="hidden" id="recogertipoVehiculo" value="<?php if(isset($_GET["tv"])){echo $_GET['tv'];}else{echo "";}?>">
     
  <font color="black"> 
 <h2>Ingresó en:</h2>
@@ -5576,9 +5578,30 @@ require_once 'footer.php';
 
 <script type="text/javascript">
 	function init(){
+    $("#salir").hide();
     console.log("se ejecuta al inicio");
  pintarocupados();
+ ponerboton();
 	}
+
+function ponerboton(){
+  var tv = $("#recogertipoVehiculo").val();
+  console.log(tv);
+  if (tv=="Auto") {
+$("#entrarmoto").hide();
+$("#entrarbicicleta").hide();
+
+  }
+  if (tv=="Moto") {
+$("#entrarcarro").hide();
+$("#entrarbicicleta").hide();
+  }
+  if (tv=="Bici") {
+$("#entrarmoto").hide();
+$("#entrarcarro").hide();
+  }
+ 
+}
 
 function aleatorioentrar(){
     var junto;
@@ -5777,6 +5800,10 @@ var espacio=data;
     data: {"id_area":id_area2,"espacio":espacio},
 
     success: function(datos){
+      $("#entrarcarro").hide();
+      $("#entrarmoto").hide();
+      $("#entrarbicicleta").hide();
+      $("#salir").show();
     vehiculosOcupados();
   }
 });
@@ -5814,7 +5841,7 @@ vehiculosOcupados();
 }}
 );
 }
-function salir2(){
+function salir2(sacar){
 $.post("../ajax/C_Seccion.php?op=pedirEstacionamientosLlenos", {}, function(data, status){
   try{
     data = JSON.parse(data);
@@ -5826,25 +5853,24 @@ $.post("../ajax/C_Seccion.php?op=pedirEstacionamientosLlenos", {}, function(data
     sacarvehiculo("0"); 
   }
   else{
-  var aleatorio = Math.round(Math.random()*tamañodelarraydefinitivo)-1;
-  if(aleatorio==-1){
-aleatorio=0;
-  }
-  console.log("el aleatorio generado es:"+aleatorio);
-  console.log("el arraypintados es:"+arraypintados[aleatorio]);
-  var eliminar=arraypintados[aleatorio].nombre;
-  var indice=arraypintados.indexOf(eliminar);
-  arraypintados.splice(indice,1);
-  console.log("Se elimina:"+eliminar);
-  document.getElementById(eliminar).style.fill="#FFB300";
+  
+  //var eliminar=arraypintados[aleatorio].nombre;
+ // var indice=arraypintados.indexOf(eliminar);
+ // arraypintados.splice(indice,1);
+  console.log("Se elimina:"+sacar);
+  document.getElementById(sacar).style.fill="#FFB300";
   document.getElementById("lugarocupado").innerHTML="--";
-  sacarvehiculo(eliminar);
+  sacarvehiculo(sacar);
+
+  bootbox.alert("Salio el vehiculo.", function(){$(location).attr('href',"../vistas/controlarSalida.php");});
+
   }}
   catch(err){
 //alert("el error es:"+err.message);
 sacarvehiculo(0);
   }
-  });
+  }
+  );
 }
 
 function sacarvehiculo(salio){
@@ -5864,7 +5890,10 @@ var msg=salio;
 }
 
 function salir(){
-   salir2();
+  //var a=document.getElementById(numerototaldecarros);
+  var a=$("#lugarocupado").text();
+  console.log(a);
+   salir2(a);
 }
 init();
 </script>

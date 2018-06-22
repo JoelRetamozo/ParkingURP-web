@@ -334,6 +334,8 @@ function registrarControl(e){
 	e.preventDefault();
 	var formData = new FormData($("#frmIngreso")[0]);
 
+	var tipo_vehiculo = $('#tipo_vehiculo').text();
+
 	$.ajax({
 		url: "../ajax/C_Control.php?op=guardar",
 		type: "POST",
@@ -342,7 +344,7 @@ function registrarControl(e){
 		processData: false,
 
 		success: function(datos){
-			bootbox.alert("Se registró correctamente.", function(){$(location).attr('href',"../vistas/simular.php");});
+			bootbox.alert("Se registró correctamente.", function(){$(location).attr('href',"../vistas/simular.php?tv="+tipo_vehiculo);});
 		}
 	});
 }
@@ -532,7 +534,7 @@ function registrarControlBici(e){
 		processData: false,
 
 		success: function(datos){
-			bootbox.alert("Se registró correctamente.", function(){$(location).attr('href',"../vistas/simular.php");});
+			bootbox.alert("Se registró correctamente.", function(){$(location).attr('href',"../vistas/simular.php?tv=Bici");});
 		}
 	});
 }

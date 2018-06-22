@@ -165,6 +165,10 @@ desired effect
             if($_SESSION['perfil'] == "Supervisor"){
               echo '<li><a href="registrarConductores.php"><i class="fa fa-user"></i> <span>Registrar Conductores</span></a></li>';
 
+              echo '<li><a href="aprobarPermanencia.php"><i class="fa fa-eye"></i> <span>Aprobar Permanencia</span></a></li>';
+
+              echo '<li><a href="gestionarEvento.php"><i class="fa fa-cogs"></i> <span>Gestionar Evento</span></a></li>';
+
               echo '<li><a href="consultarSugerencias.php"><i class="fa fa-eye"></i> <span>Consultar Sugerencias</span></a></li>';
             } 
             ?>
@@ -175,6 +179,12 @@ desired effect
               echo '<li><a href="controlarIngreso.php"><i class="fa fa-cogs"></i> <span>Controlar Ingreso</span></a></li>';
 
               echo '<li><a href="controlarSalida.php"><i class="fa fa-cogs"></i> <span>Controlar Salida</span></a></li>';
+            } 
+            ?>
+
+        <?php
+            if($_SESSION['perfil'] == "Administrador"){
+              echo '<li><a href="consultarSugerencias.php"><i class="fa fa-eye"></i> <span>Consultar Sugerencias</span></a></li>';
             } 
             ?>
         

@@ -100,5 +100,42 @@ switch ($_GET["op"]) {
 			"aaData" => $data);
 		echo json_encode($results);
 	break;
+
+	case 'listarSolicitud':
+		$rspta = $m_control->listarSolicitud();
+		//Vamos a declarar un Array para almacenar todos los registros que voy  listar
+		$data = Array();
+
+		while ($reg = $rspta->fetch_object()) {
+			$data[] = array(
+				"0" => $reg->codigo,
+				"1" => $reg->placa,
+				"2" => (($reg->flag_quedarse=='1' ?'<span class="label bg-blue">Solicitado</span>' : ($reg->flag_quedarse=='2' ? ' <span class="label bg-green">Activado</span>' : ' <span class="label bg-red">Desaprobado</span>'))),
+				"3" => ($reg->flag_quedarse=='1')?'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#verDatos" onclick="verDatSolicitud('."'".$reg->placa."', '".$reg->id_control."'".')">Ver</button>':'<button type="button" class="btn btn-info" disabled="true">Ver</button>'
+			);
+		}
+		$results = array(
+			"sEcho" => 1, //Informacion para el datatables
+			"iTotalRecords" => count($data), //enviamos el total registros al datatable
+			"iTotalDisplayRecords" => count($data), //enviamos el total registros a visualizar
+			"aaData" => $data);
+		echo json_encode($results);
+		break;
+
+		case 'desaprobarEstadoSolicitud':
+		$rspta = $m_control->desaprobarEstadoSolicitud($id_control, $respuesta);
+		echo $rspta ? "Solicitud Desaprobada" : "No se puede desaprobar la solicitud";
+		break;
+		
+		case 'aprobarEstadoSolicitud':
+		$rspta = $m_control->aprobarEstadoSolicitud($id_control);
+		echo $rspta ? "Solicitud Aprobada" : "No se puede aprobar la solicitud";
+		break;
+		
+		case 'verDatSolicitud':
+		$placa = isset($_POST["placa"])? limpiarCadena($_POST["placa"]):"";
+		$rspta = $m_control->verDatSolicitud($placa);
+		echo json_encode($rspta);
+		break;
 }
 ?>
