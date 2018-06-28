@@ -30,6 +30,11 @@ Class M_Seccion{
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
+	public function estacionamientoLibre(){
+		$sql = "SELECT COUNT(*) AS count FROM T_Seccion WHERE estado=0";
+		return ejecutarConsultaSimpleFila($sql);
+	}
+
 }
 
 ?>

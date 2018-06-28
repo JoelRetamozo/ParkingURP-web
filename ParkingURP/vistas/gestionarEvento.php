@@ -45,12 +45,11 @@ require 'header.php';
                 <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
 
                   <thead>
-                    <th>Codigo</th>
                     <th>Nombre</th>
                     <th>Descripcion</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
-                    <th>Estado</th>                  
+                    <th>Accion</th>                  
                   </thead>
                   <tbody>
                   </tbody>
@@ -84,6 +83,7 @@ require 'header.php';
                     <div class="box-body" style="">                                    
                        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Nombre:</label>
+                        <input type="hidden" id="id_evento" name="id_evento">
                         <input type="text" class="form-control" name="nombre" id="nombre" maxlength="50" placeholder="Nombre" required>
                       </div>
                       <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -92,32 +92,17 @@ require 'header.php';
                       </div>
                       <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Fecha Inicio:</label>
-                        <input type="date" class="form-control" name="fecInicio" id="fecInicio" maxlength="50" placeholder="Fecha Inicio" required>
+                        <input type="date" class="form-control" name="fecInicio" id="fecInicio" placeholder="Fecha Inicio" required>
                       </div>
-                      <div class="form-group co l-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <label>Fecha Fin:</label>
                         <input type="date" class="form-control" name="fecFin" id="fecFin" maxlength="50" placeholder="Fecha Fin" required>
                       </div>
 
-                     <!-- <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <label>Area:</label>
-                        <div class="">
-                          <select id="id_area name="id_area" onchange="queTipoPersona(this)" class="form-control selectpicker" data-live-search="true" required></select>
-                        </div>
-                      </div> 
-
-                    <div class="form-group co l-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <label>Estado:</label>
-                        <input type="text" class="form-control" name="estado" id="estado" maxlength="50" placeholder="Estado" required>
-                      </div> -->
-
-                     <!--   <div >
-                      <div class="form-group co l-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <label>Area:</label>
-                        <input type="text" class="form-control" name="area" id="area" maxlength="50" placeholder="Area " required>
-                      </div> -->
-
-                      <div class="box-body" style="">
+                      <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label>Areas</label>
+                        <select class="form-control selectpicker" id="id_area" multiple="multiple" name="id_area[]" data-placeholder="Seleccione las Areas" required="true">
+                        </select>
                       </div>
 
                     </div>
@@ -129,11 +114,9 @@ require 'header.php';
                   <div class="form-group col-lg-12 col-md-12 col-sm-12
                   col-xs-12">
                     <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Registrar</button>
-
-                    <button class="btn btn-primary" onclick="activemos()" id="btnActivar"><i class="fa fa-check"></i> Activar</button>
-                    <button class="btn btn-danger" onclick="desactivemos()" id="btnDesactivar"><i class="fa fa-Close"></i> Desactivar</button>
-
-                    <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                    <button id="btnIniciarEvento" class="btn btn-primary" onclick="inicioDeEvento()" type="button"><i class="fa fa-check"></i> Iniciar</button>
+                    <button id="btnFinalizarEvento" class="btn btn-danger" onclick="finDeEvento()" type="button"><i class="fa fa-close"></i> Finalizar</button>
+                    <button class="btn btn-default" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                   </div>
                 </form>
               </div>

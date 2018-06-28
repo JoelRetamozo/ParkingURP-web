@@ -6,7 +6,9 @@ function init(){
 	$("#frmIngreso").on("submit", function(e){
 			registrarControl(e);
 		});
+
 	$('#spanCodigoBusqueda').hide();
+	$('#spanEstacionamientoLleno').hide();
 	var codigo = $("#codigo").val();
 
 	if(codigo == ''){
@@ -16,6 +18,23 @@ function init(){
 		if(DNIInvitados == ''){
 			console.log("Viene del Inicio");
 			ClearAll();
+
+			$.post("../ajax/C_Seccion.php?op=existeEstacionamientoLibre", {}, function(data, status){
+				console.log(data);
+				if(data != 'null'){
+					data = JSON.parse(data);
+					console.log(data.count);
+
+					if(data.count == '0'){
+						$('#spanEstacionamientoLleno').show();
+						$("#btnBuscar").prop("disabled", true);
+					}else{
+						$('#spanEstacionamientoLleno').hide();
+						$("#btnBuscar").prop("disabled", false);
+					}
+				}
+
+			});
 		}else{
 			$('.nav-tabs a[href="#tab_2"]').tab('show');
 			var placa = $("#placaNuevoRegistro").val();

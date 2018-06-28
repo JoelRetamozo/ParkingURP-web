@@ -57,6 +57,8 @@ if($_SESSION['perfil'] == "Vigilante"){
 
                     <br>
                     <button class="btn btn-primary" id="btnBuscar" onclick="validarConductor($('#codigo').val());"><i class="fa  fa-search"></i> Buscar</button>
+
+                    <span id="spanEstacionamientoLleno" class="help-block"> Estacionamiento lleno</span>
                     
                 </div>
               </div>

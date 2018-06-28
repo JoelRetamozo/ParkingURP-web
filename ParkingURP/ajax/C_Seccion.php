@@ -49,6 +49,11 @@ case 'pedirEstacionamientosLlenos':
 	}
 		echo json_encode($data);
 		break;
+
+	case 'existeEstacionamientoLibre':
+	$rspta= $m_seccion->estacionamientoLibre();
+		echo json_encode($rspta);
+		break;
 	
 }
 ?>

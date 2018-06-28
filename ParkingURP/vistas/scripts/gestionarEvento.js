@@ -11,26 +11,9 @@ function init(){
 		guardaryeditar(e);
 	});
 
-	$("#spanCodigo").hide();
-	$("#spanPlaca").hide();
-
-	$("#btnActivar").hide();
-	$("#btnDesactivar").hide();
-
-
-	$.post("../ajax/C_Carrera.php?op=selectCarrera", function(r){
-		$("#id_carrera").html(r);
-		$('#id_carrera').selectpicker('refresh');
-	});
-
-	$.post("../ajax/C_Tipo_Vehiculo.php?op=selectTipoVehiculo", function(r){
-		$("#id_tipo_vehiculo").html(r);
-		$('#id_tipo_vehiculo').selectpicker('refresh');
-	});
-
-	$.post("../ajax/C_Color.php?op=selectColor", function(r){
-		$("#id_color").html(r);
-		$('#id_color').selectpicker('refresh');
+	$.post("../ajax/C_Area.php?op=selectArea", function(r){
+		$("#id_area").html(r);
+		$('#id_area').selectpicker('refresh');
 	});
 }
 
@@ -69,10 +52,11 @@ function limpiar(){
 	$("#decripcion").val("");
 	$("#fecInicio").val("");
 	$("#fecFin").val("");
+	$("#id_area").val([""]);
+	$("#id_area").selectpicker('refresh');
+	$("#id_evento").val("");
 
 }
-
-
 
 
 
@@ -85,10 +69,9 @@ function mostrarform(flag){
 		$("#divPanels").hide();
 		$("#formulario").show();
 		$("#btnGuardar").prop("disabled", false);
-		$("#btnActivar").prop("disabled", false);
-		$("#btnDesactivar").prop("disabled", false);
 		$("#btnNuevo").hide();
-
+		$("#btnIniciarEvento").hide();
+		$("#btnFinalizarEvento").hide();
 
 	}else{
 		$("#divPanels").show();
@@ -111,8 +94,8 @@ function mostrarform(flag){
 function cancelarform(){
 	limpiar();
 	$("#btnGuardar").show();
-	$("#btnActivar").hide();
-	$("#btnDesactivar").hide();
+	$("#btnIniciarEvento").hide();
+	$("#btnFinalizarEvento").hide();
 
 	mostrarform(false);
 }
@@ -123,7 +106,7 @@ function nombrevalido(elemento) {
         for ($i=0;$i<=strlen($nombre)-1;$i++) { 
             if (strpos($validos,substr($nombre,$i,1))===false) {$validez=0;} 
         } 
-        return $validez; 
+        return $validez;
 }  
 
 
@@ -132,26 +115,191 @@ function nombrevalido(elemento) {
 function guardaryeditar(e)
 {
 	e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("enabled",true);
-	var formData = new FormData($("#formulario")[0]);
 
-	$.ajax({
-		url: "../ajax/C_Evento.php?op=insertar",
-	    type: "POST",
-	    data: formData,
-	    contentType: false,
-	    processData: false,
+	var hoy = new Date();
+	console.log("HOY:" + hoy);
 
-	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
-	          mostrarform(false);
-	          tabla.ajax.reload();
-	    }
+	var fecInicio =new Date($("#fecInicio").val());
+	console.log("Fecha Inicio: " + fecInicio);
 
-	});
-	limpiar();
+	var fecFin = new Date($("#fecFin").val());
+	console.log("Fecha Fin: " + fecFin);
+
+	if(hoy > fecInicio && (hoy.getDate() - 1) > fecInicio.getDate()){
+
+		bootbox.alert("Ingrese una fecha inicio mayor a la actual: " + hoy);
+
+	}else{
+		if(fecInicio <= fecFin){
+
+			$("#btnGuardar").prop("enabled",true);
+			var formData = new FormData($("#formulario")[0]);
+
+			$.ajax({
+				url: "../ajax/C_Evento.php?op=insertar",
+			    type: "POST",
+			    data: formData,
+			    contentType: false,
+			    processData: false,
+
+			    success: function(datos)
+			    {                    
+			          bootbox.alert(datos);	          
+			          mostrarform(false);
+			          tabla.ajax.reload();
+			    }
+
+			});
+			limpiar();
+
+		}else{
+			bootbox.alert("Ingrese una fecha fin mayor a la fecha inicial")
+		}
+	}
 }
- 
+
+function iniciarEvento(id_evento){
+	console.log(id_evento);
+
+	mostrarform(true);
+
+	llenarFormulario(id_evento, true);
+
+	$("#btnIniciarEvento").show();
+	$("#id_evento").val(id_evento);
+}
+
+function finalizarEvento(id_evento){
+
+	mostrarform(true);
+
+	llenarFormulario(id_evento, true);
+
+	$("#btnFinalizarEvento").show();
+
+	$("#id_evento").val(id_evento);
+}
+
+function llenarFormulario(id_evento, flag){
+
+	if(flag){
+
+		$("#nombre").prop("readonly", true);
+		$("#decripcion").prop("readonly", true);
+		$("#fecInicio").prop("readonly", true);
+		$("#fecFin").prop("readonly", true);
+		$("#id_area").prop("readonly", true);
+
+		$("#btnGuardar").hide();
+
+		$.post("../ajax/C_Evento.php?op=listarAreas", {id_evento : id_evento}, function(data, status){
+		if(data != null){
+			var ids_area = data.split(',');
+
+			$("#id_area").val(ids_area);
+			$('#id_area').selectpicker('render');
+		}
+
+		});
+
+		$.post("../ajax/C_Evento.php?op=buscar", {id_evento : id_evento}, function(data, status){
+		if(data != null){
+
+			data = JSON.parse(data);
+
+			$("#nombre").val(data.nombre);
+			$("#decripcion").val(data.descripcion);
+			$("#fecInicio").val(data.fecha_inicio);
+			$("#fecFin").val(data.fecha_fin);
+		}
+
+		});
+	}else{
+		$("#btnGuardar").show();
+
+		$("#nombre").prop("readonly", false);
+		$("#decripcion").prop("readonly", false);
+		$("#fecInicio").prop("readonly", false);
+		$("#fecFin").prop("readonly", false);
+		$("#id_area").prop("readonly", false);
+
+		$("#nombre").val("");
+		$("#decripcion").val("");
+		$("#fecInicio").val("");
+		$("#fecFin").val("");
+		$("#id_area").val("");
+	}
+
+}
+
+function inicioDeEvento(){
+	var hoy = new Date();
+	console.log(hoy);
+	console.log($("#fecInicio").val());
+	var fecInicio = new Date($("#fecInicio").val());
+	console.log(fecInicio);
+
+	if(hoy == fecInicio || (hoy.getDate() - 1) == fecInicio.getDate()){
+
+		var formData = new FormData($("#formulario")[0]);
+
+		$.ajax({
+			url: "../ajax/C_Evento.php?op=iniciarEvento",
+		    type: "POST",
+		    data: formData,
+		    contentType: false,
+		    processData: false,
+
+		    success: function(datos)
+		    {                    
+		        limpiar();
+				bootbox.alert(datos);         
+		        mostrarform(false);
+				llenarFormulario(id_evento, false);
+		        tabla.ajax.reload();
+		    }
+
+		});
+		
+	}else{
+		bootbox.alert("El evento se debe iniciar el " + $("#fecInicio").val());
+	}
+}
+
+function finDeEvento(){
+	var hoy = new Date();
+	console.log(hoy);
+	console.log($("#fecFin").val());
+	var fecFin = new Date($("#fecFin").val());
+	console.log(fecFin);
+	console.log((hoy.getDate() - 1));
+	console.log(fecFin.getDate());
+
+	if(hoy == fecFin || (hoy.getDate() - 1) == fecFin.getDate()){
+
+		var formData = new FormData($("#formulario")[0]);
+
+		$.ajax({
+			url: "../ajax/C_Evento.php?op=finalizarEvento",
+		    type: "POST",
+		    data: formData,
+		    contentType: false,
+		    processData: false,
+
+		    success: function(datos)
+		    {                    
+		        limpiar();
+				bootbox.alert(datos);         
+		        mostrarform(false);
+				llenarFormulario(id_evento, false);
+		        tabla.ajax.reload();
+		    }
+
+		});
+		
+	}else{
+		bootbox.alert("El evento se debe finalizar el " + $("#fecFin").val());
+	}
+} 
 
 init();

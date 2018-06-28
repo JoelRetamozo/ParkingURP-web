@@ -15,7 +15,7 @@ Class M_Usuario{
 		}
 
 		if($password == ""){
-			//enviarMail($correo, $codigo, $pass);
+			enviarMail($correo, $codigo, $pass);
 			$sql = "INSERT INTO T_Usuario(codigo, password, estado, perfil) VALUES ('$codigo', '$pass', '1', '$perfil')";
 		}else{
 			$sql = "INSERT INTO T_Usuario(codigo, password, estado, perfil) VALUES ('$codigo', '$password', '1', '$perfil')";
@@ -48,7 +48,7 @@ Class M_Usuario{
 		$message = "Su cuenta para la aplicación móvil es:" . "\r\n" . 
 			"Usuario: " . $codigo . "\r\n" .
 			"Password: " . $password;
-		mail($correo, $subject, $message);
+		mail($correo, $subject, $message, $headers);
 	}
 
 	public function verificar($codigo, $password){

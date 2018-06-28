@@ -52,8 +52,20 @@ switch ($_GET["op"]) {
 		break;
 
 		case 'editar':
+
+		require_once "../modelos/M_Usuario.php";
+		$m_usuario = new M_Usuario();
 		
 			$rspta = $m_control->editar($id_control, $fecha_salida.' '.$hora_salida);
+			$rspta1 = $m_usuario->cambiarEstado($codigo, '1');
+
+		require_once "../modelos/M_Vehiculo.php";
+		$m_vehiculo = new M_Vehiculo();
+
+		$placa = isset($_POST["placa"])? limpiarCadena($_POST["placa"]):"";
+
+		$rspta2 = $m_vehiculo->editarEstado($placa, "1");
+
 			echo $rspta ? "Ha marcado salida exitosamente" : "No se pudo marcar la salida";
 		
 		break;

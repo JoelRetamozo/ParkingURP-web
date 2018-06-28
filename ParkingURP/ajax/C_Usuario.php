@@ -74,7 +74,7 @@ switch ($_GET["op"]) {
 	 
 			$message = "Su contraseña para la aplicación móvil es:" . "\r\n" . 
 				"Password: " . $rspta["password"];
-			$rspta123 = mail($correo, $subject, $message);
+			$rspta123 = mail($correo, $subject, $message, $headers);
 
 			echo "Se envio su contraseña a su correo.";
 		}else{

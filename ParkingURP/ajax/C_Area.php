@@ -26,5 +26,14 @@ switch ($_GET["op"]) {
 	case 'actualizarEspacioArea':
 		$rspta= $m_area->actualizarEspacioArea($id_area,$espacio);
 		break;
+
+	case 'selectArea':
+
+			$rspta = $m_area->listar();
+
+			while ($reg = $rspta->fetch_object()) {
+				echo '<option value="' . $reg->id_area . '">' . $reg->nombre . '</option>';
+			}
+			break;
 }
 ?>

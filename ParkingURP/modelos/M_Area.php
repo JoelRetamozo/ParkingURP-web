@@ -21,6 +21,22 @@ Class M_Area{
 		return ejecutarConsulta($sql);
 				
 	}
+
+	public function listar(){
+		$sql = "SELECT * FROM T_Area";
+		return ejecutarConsulta($sql);
+	}
+
+	public function iniciarEvento($id_area){
+		$sql = "UPDATE T_Area a JOIN T_Seccion s ON a.id_area = s.id_area AND a.id_area = '$id_area' SET a.espacio = '0', a.estado = '1', s.estado = '1'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function finalizarEvento($id_area){
+		$sql = "UPDATE T_Area a JOIN T_Seccion s ON a.id_area = s.id_area AND a.id_area = '$id_area' SET a.espacio = a.total, a.estado = '0', s.estado = '0'";
+		return ejecutarConsulta($sql);
+	}
+
 }
 
 ?>

@@ -63,6 +63,7 @@ require_once 'header.php';
   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -71,6 +72,8 @@ require_once 'header.php';
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200mm"
+   height="75mm"
    viewBox="0 0 780.66888 320.44846"
    version="1.1"
    id="svg8"
@@ -380,7 +383,7 @@ require_once 'header.php';
     </rect>
     <rect
        style="fill:#FFB300;stroke-width:0.19691484"
-       id="SM6"
+       id="sM6"
        width="10.583875"
        height="18.976137"
        x="53.847507"
@@ -2775,7 +2778,7 @@ require_once 'header.php';
     </rect>
     <rect
        style="fill:#FFB300;stroke-width:0.19691484"
-       id="rect3753-1-2-5-7-0-5-2-3"
+       id="sF19"
        width="10.583875"
        height="18.976137"
        x="-189.16118"
@@ -5564,6 +5567,7 @@ require_once 'header.php';
        transform="matrix(-6.3793675e-4,0.9999998,-0.99998747,-0.00500554,0,0)" />
   </g>
 </svg>
+
 
                 </div>
 
